@@ -7,15 +7,15 @@
         
         
         
-        <link rel="shortcut icon" href="../img/favicon.ico">
-        <title>介绍 - 游戏引擎学习</title>
-        <link href="../css/bootstrap.min.css" rel="stylesheet">
-        <link href="../css/font-awesome.min.css" rel="stylesheet">
-        <link href="../css/base.css" rel="stylesheet">
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>输入池 - 游戏引擎学习</title>
+        <link href="../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css">
 
-        <script src="../js/jquery-1.10.2.min.js" defer></script>
-        <script src="../js/bootstrap.min.js" defer></script>
+        <script src="../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../js/bootstrap.min.js" defer></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
         <script>hljs.initHighlightingOnLoad();</script> 
     </head>
@@ -23,7 +23,7 @@
     <body>
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-                <a class="navbar-brand" href="..">游戏引擎学习</a>
+                <a class="navbar-brand" href="../..">游戏引擎学习</a>
                 <!-- Expander button -->
                 <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
                     <span class="navbar-toggler-icon"></span>
@@ -34,13 +34,43 @@
                         <!-- Main navigation -->
                         <ul class="nav navbar-nav">
                             <li class="navitem">
-                                <a href=".." class="nav-link">家</a>
-                            </li>
-                            <li class="navitem active">
-                                <a href="./" class="nav-link">介绍</a>
+                                <a href="../.." class="nav-link">家</a>
                             </li>
                             <li class="navitem">
-                                <a href="../EventSystem/" class="nav-link">事件系统</a>
+                                <a href="../../Introduce.md" class="nav-link">介绍</a>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">核心 <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../EventsSystem/" class="dropdown-item">事件系统</a>
+</li>
+                                    
+<li>
+    <a href="../LayersSystem/" class="dropdown-item">层级系统</a>
+</li>
+                                    
+<li>
+    <a href="./" class="dropdown-item active">输入池</a>
+</li>
+                                    
+<li>
+    <a href="../Math/" class="dropdown-item">数学</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">功能 <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../Function/ImGuiLayer/" class="dropdown-item">ImGui 层</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="navitem">
+                                <a href="../.." class="nav-link">资源</a>
                             </li>
                         </ul>
 
@@ -51,12 +81,12 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href=".." class="nav-link">
+                                <a rel="prev" href="../LayersSystem/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../EventSystem/" class="nav-link">
+                                <a rel="next" href="../Math/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -78,59 +108,33 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#_1" class="nav-link">什么是游戏引擎</a>
+            <li class="nav-item" data-level="1"><a href="#_1" class="nav-link">结构</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#_2" class="nav-link">维基百科</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#_3" class="nav-link">王希老师</a>
+            <li class="nav-item" data-level="2"><a href="#_2" class="nav-link">优点</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#zong" class="nav-link">Zong</a>
+            <li class="nav-item" data-level="2"><a href="#input" class="nav-link">Input</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-              </ul>
-            </li>
-            
-            <li class="nav-item" data-level="1"><a href="#_4" class="nav-link">怎么学习游戏引擎</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            
-            <li class="nav-item" data-level="1"><a href="#_5" class="nav-link">游戏引擎框架</a>
-              <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#_6" class="nav-link">工具层</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#_7" class="nav-link">功能层</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#_8" class="nav-link">资源层</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#_9" class="nav-link">平台层</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#_10" class="nav-link">核心层</a>
+            <li class="nav-item" data-level="2"><a href="#windowsinput" class="nav-link">WindowsInput</a>
               <ul class="nav flex-column">
               </ul>
             </li>
               </ul>
             </li>
             
-            <li class="nav-item" data-level="1"><a href="#vitar-engine" class="nav-link">Vitar Engine</a>
+            <li class="nav-item" data-level="1"><a href="#_3" class="nav-link">补充知识</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#static" class="nav-link">static</a>
               <ul class="nav flex-column">
               </ul>
             </li>
+              </ul>
+            </li>
             
-            <li class="nav-item" data-level="1"><a href="#_11" class="nav-link">资料来源</a>
+            <li class="nav-item" data-level="1"><a href="#_4" class="nav-link">资料来源</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -139,52 +143,62 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="_1">什么是游戏引擎</h1>
-<h2 id="_2">维基百科</h2>
-<p>游戏引擎是指一些已编写好的可编辑电脑游戏系统或者一些交互式实时图像应用程序的核心组件。</p>
-<p>这些系统为游戏设计者提供编写游戏所需的各种工具，目的在于让游戏设计者能够快速地做出游戏，而不用从零开始。</p>
-<h2 id="_3">王希老师</h2>
-<ul>
-<li>《黑客帝国》的技术基石；</li>
-<li>生产创意的工具；</li>
-<li>复杂性系统的艺术。</li>
-</ul>
-<h2 id="zong">Zong</h2>
-<p>从客观来上说，游戏引擎是一堆游戏底层所需的模块的集合，但是如果你将其当作一个复杂的机器或者世界，那它就是人类艺术的集大成作。</p>
-<blockquote>
-<p>尊重它，欣赏它，理解它。</p>
-</blockquote>
-<p>游戏引擎会为你提供一套完整的开发工具链，以供你开发各种各样的游戏，甚至是影视。</p>
-<h1 id="_4">怎么学习游戏引擎</h1>
-<p>游戏引擎内含了现有的大部分科学知识，那些东西需要你花几乎一辈子去钻研才能真正理解。</p>
-<p><img alt="游戏引擎理论学习书籍" src="../IntroduceResources/GameEngineLearnBooks.jpg" /></p>
-<p>所以在这里，我更多的是为你构建出游戏引擎的理论框架，剩下的需要你自己以后慢慢填补。</p>
-<h1 id="_5">游戏引擎框架</h1>
-<p><img alt="游戏引擎分层" src="../IntroduceResources/GameEngineLayers.png" /></p>
-<p>从上往下依次是工具层、功能层、资源层、平台层和核心层，再加上贯穿始终的第三方库。</p>
-<p>在这里我将平台层放在核心层之上，意在指通过抽象 <strong>API</strong> 将核心层的代码在平台层中实现（<strong>override</strong>）和完善。</p>
-<h2 id="_6">工具层</h2>
-<p>为开发者提供编辑器工具，比如蓝图。</p>
-<h2 id="_7">功能层</h2>
-<p>主要是通过底层的核心模块实现引擎开发所需的主要功能，并按序 <strong>Tick</strong> 每一个功能模块。</p>
-<p><img alt="Tick 轮盘" src="../IntroduceResources/GameEngineTick.jpg" /></p>
-<p>多线程间的调度与管理也属于这一层。</p>
-<h2 id="_8">资源层</h2>
-<p>主要是要记录资源内部和资源间的引用关系以及管理资产的生命周期。</p>
-<p>举个例子，<strong>Assimp</strong> 引入模型时会构建类似以下的存储结构。</p>
-<p><img alt="Assimp 引入模型" src="../IntroduceResources/AssimpLoadModel.png" /></p>
-<h2 id="_9">平台层</h2>
-<p>主要是根据不同的游戏平台以及渲染接口异化核心层引出的 <strong>API</strong> （重载虚函数以实现多态）。</p>
-<h2 id="_10">核心层</h2>
-<p>内含数学库，事件监听，日志等等核心功能。</p>
-<p>数据结构和内存管理也属于该层，通过优化底层的数据存放以减少内存的空洞。</p>
-<h1 id="vitar-engine">Vitar Engine</h1>
-<p>在 <strong>Vitar Engine</strong> 中，我并没有依此分层严格规定目录结构，不过会在不久的将来将其整理成该结构。</p>
-<p>你可以先参考 <a href="https://github.com/BoomingTech/Piccolo"><strong>Piccolo Engine</strong></a>。</p>
-<p><img alt="游戏引擎文件结构" src="../IntroduceResources/GameEngineDir.jpg" /></p>
-<h1 id="_11">资料来源</h1>
+<h1 id="_1">结构</h1>
+<p><img alt="输入池类图" src="../InputPollingResources/Structure.png" /></p>
+<h2 id="_2">优点</h2>
 <ol>
-<li><a href="https://learnopengl-cn.github.io/03%20Model%20Loading/01%20Assimp/"><strong>Assimp</strong> 引入模型介绍。</a></li>
+<li>在不同平台下将实现函数重载，再交由标准函数统一调用。</li>
+</ol>
+<h2 id="input">Input</h2>
+<p><a href="https://github.com/TheCherno/Hazel/commit/e1bb18d2c8e9c514d959c2eeb55d24af00d169ff#diff-be85eaa45142337711de6464b454b48df255e8b9aa345a3edf5c37c27b31bb76"><strong>Input</strong></a> ：作为基类，提供了公有的标准函数接口（方便调用）和实现函数接口（重载）。</p>
+<pre><code class="language-c++">class HAZEL_API Input
+{
+public:
+    inline static bool IsKeyPressed(int keycode) { return s_Instance-&gt;IsKeyPressedImpl(keycode); }
+
+    inline static bool IsMouseButtonPressed(int button) { return s_Instance-&gt;IsMouseButtonPressedImpl(button); }
+    inline static std::pair&lt;float, float&gt; GetMousePosition() { return s_Instance-&gt;GetMousePositionImpl(); }
+    inline static float GetMouseX() { return s_Instance-&gt;GetMouseXImpl(); }
+    inline static float GetMouseY() { return s_Instance-&gt;GetMouseYImpl(); }
+protected:
+    virtual bool IsKeyPressedImpl(int keycode) = 0;
+
+    virtual bool IsMouseButtonPressedImpl(int button) = 0;
+    virtual std::pair&lt;float, float&gt; GetMousePositionImpl() = 0;
+    virtual float GetMouseXImpl() = 0;
+    virtual float GetMouseYImpl() = 0;
+private:
+    static Input* s_Instance;
+};
+</code></pre>
+<h2 id="windowsinput">WindowsInput</h2>
+<p><a href="https://github.com/TheCherno/Hazel/commit/e1bb18d2c8e9c514d959c2eeb55d24af00d169ff#diff-be85eaa45142337711de6464b454b48df255e8b9aa345a3edf5c37c27b31bb76"><strong>WindowsInput</strong></a> ：利用 <strong>GLFW</strong> 重载了实现函数。</p>
+<pre><code class="language-c++">class HAZEL_API Input
+{
+public:
+    inline static bool IsKeyPressed(int keycode) { return s_Instance-&gt;IsKeyPressedImpl(keycode); }
+
+    inline static bool IsMouseButtonPressed(int button) { return s_Instance-&gt;IsMouseButtonPressedImpl(button); }
+    inline static std::pair&lt;float, float&gt; GetMousePosition() { return s_Instance-&gt;GetMousePositionImpl(); }
+    inline static float GetMouseX() { return s_Instance-&gt;GetMouseXImpl(); }
+    inline static float GetMouseY() { return s_Instance-&gt;GetMouseYImpl(); }
+protected:
+    virtual bool IsKeyPressedImpl(int keycode) = 0;
+
+    virtual bool IsMouseButtonPressedImpl(int button) = 0;
+    virtual std::pair&lt;float, float&gt; GetMousePositionImpl() = 0;
+    virtual float GetMouseXImpl() = 0;
+    virtual float GetMouseYImpl() = 0;
+private:
+    static Input* s_Instance;
+};
+</code></pre>
+<h1 id="_3">补充知识</h1>
+<h2 id="static">static</h2>
+<p>父类中被 <strong>static</strong> 修饰的对象在继承后不会改变其访问权限。</p>
+<h1 id="_4">资料来源</h1>
+<ol>
+<li><a href="https://blog.csdn.net/alexhu2010q/article/details/107688039?spm=1001.2101.3001.6650.12&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-12-107688039-blog-107132670.pc_relevant_3mothn_strategy_and_data_recovery&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-12-107688039-blog-107132670.pc_relevant_3mothn_strategy_and_data_recovery&amp;utm_relevant_index=17"><strong>static</strong>。</a></li>
 </ol></div>
             </div>
         </div>
@@ -194,11 +208,11 @@
             <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
         <script>
-            var base_url = "..",
+            var base_url = "../..",
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
-        <script src="../js/base.js" defer></script>
-        <script src="../search/main.js" defer></script>
+        <script src="../../js/base.js" defer></script>
+        <script src="../../search/main.js" defer></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
