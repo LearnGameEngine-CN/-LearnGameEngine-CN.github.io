@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="../../../img/favicon.ico">
+
+    
+    <title>基础 - 游戏引擎学习</title>
+    
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
+    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href="../../../css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="../../../css/base.min.css" rel="stylesheet">
+    <link href="../../../css/cinder.min.css" rel="stylesheet">
+
+    
+        
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
+        
+    
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+            <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+        <![endif]-->
+
+    
+
+     
+</head>
+
+<body>
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+
+            <!-- Main title -->
+
+            
+              <a class="navbar-brand" href="../../..">游戏引擎学习</a>
+            
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                
+                
+                    <li >
+                        <a href="../../..">家</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../../../Introduce/">介绍</a>
+                    </li>
+                
+                
+                
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">核心 <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../../EventsSystem/">事件系统</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../LayersSystem/">层级系统</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../InputPolling/">输入池</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../Math/">数学</a>
+</li>
+
+                        
+                            
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="">渲染</a>
+    <ul class="dropdown-menu">
+        
+            
+<li class="active">
+    <a href="./">基础</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                            
+<li >
+    <a href="../../Timestep/">时间步长</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../Timer/">计时器</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../EC/">EC</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">功能 <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../../../Function/ImGuiLayer/">ImGui 层</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../../Function/Scene/">Scene</a>
+</li>
+
+                        
+                            
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="">Gameplay</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../../../Function/Gameplay/GameplayBasics/">基础</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <i class="fas fa-search"></i> Search
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="prev" href="../../Math/">
+                            <i class="fas fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="next" href="../../Timestep/">
+                            Next <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+    <div class="container">
+        
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="first-level active"><a href="#gpu">GPU 的工作</a></li>
+            <li class="second-level"><a href="#_1">渲染管线</a></li>
+                
+            <li class="second-level"><a href="#_2">渲染流程</a></li>
+                
+                <li class="third-level"><a href="#_3">变换到相机的坐标系统中</a></li>
+                <li class="third-level"><a href="#shader">提交数据至 Shader</a></li>
+        <li class="first-level "><a href="#cpu">CPU 的工作</a></li>
+        <li class="first-level "><a href="#api">抽象图形 API</a></li>
+            <li class="second-level"><a href="#platform-specific">Platform specific</a></li>
+                
+                <li class="third-level"><a href="#graphicscontext">GraphicsContext</a></li>
+                <li class="third-level"><a href="#shader_1">Shader</a></li>
+                <li class="third-level"><a href="#vao-vbo-and-ibo">VAO, VBO and IBO</a></li>
+                <li class="third-level"><a href="#texture">Texture</a></li>
+                <li class="third-level"><a href="#framebuffer">Framebuffer</a></li>
+            <li class="second-level"><a href="#platform-agnostic">Platform agnostic</a></li>
+                
+                <li class="third-level"><a href="#renderer">Renderer</a></li>
+                <li class="third-level"><a href="#rendercommand">RenderCommand</a></li>
+                <li class="third-level"><a href="#camera">Camera</a></li>
+        <li class="first-level "><a href="#_4">可见性裁剪</a></li>
+            <li class="second-level"><a href="#bvh-culling">BVH Culling</a></li>
+                
+            <li class="second-level"><a href="#early-z">Early-Z</a></li>
+                
+        <li class="first-level "><a href="#_5">纹理压缩</a></li>
+            <li class="second-level"><a href="#block-compression">Block Compression</a></li>
+                
+        <li class="first-level "><a href="#_6">建模</a></li>
+            <li class="second-level"><a href="#_7">多边形建模</a></li>
+                
+            <li class="second-level"><a href="#_8">雕刻</a></li>
+                
+            <li class="second-level"><a href="#_9">实体扫描</a></li>
+                
+            <li class="second-level"><a href="#_10">程序化建模</a></li>
+                
+            <li class="second-level"><a href="#_11">比较</a></li>
+                
+        <li class="first-level "><a href="#_12">新的模型管线</a></li>
+        <li class="first-level "><a href="#_13">资料来源</a></li>
+    </ul>
+</div></div>
+        <div class="col-md-9" role="main">
+
+<h1 id="gpu">GPU 的工作</h1>
+<h2 id="_1">渲染管线</h2>
+<p><img alt="渲染管线和数据" src="../BasicsOfGameRenderingSources/RenderingPipelineAndData.jpg" /></p>
+<h2 id="_2">渲染流程</h2>
+<h3 id="_3">变换到相机的坐标系统中</h3>
+<p>这在 <strong>GAMES101</strong> 的课里都有讲。</p>
+<p><img alt="坐标变换" src="../BasicsOfGameRenderingSources/Transform.jpg" /></p>
+<h3 id="shader">提交数据至 Shader</h3>
+<p><strong>Shader</strong> 中的运算流程就是渲染管线（大概）。</p>
+<p><img alt="Shader" src="../BasicsOfGameRenderingSources/Shader.jpg" /></p>
+<h1 id="cpu">CPU 的工作</h1>
+<p>相比 <strong>GPU</strong>，<strong>CPU</strong> 主要是对抽象物体进行初始化以及管理。</p>
+<h1 id="api">抽象图形 API</h1>
+<p><img alt="Graphics API Abstraction" src="../BasicsOfGameRenderingSources/GraphicsAPIAbstraction.png" /></p>
+<p>其中左边是平台不关心的（不知道的），右边是需要根据平台重写的 <strong>API</strong>。</p>
+<p>其实通过之前的介绍，很容易发现左边是 <strong>CPU</strong> 的工作，右边是 <strong>GPU</strong> 的工作，毕竟不同的渲染平台本身就是给 <strong>CPU</strong> 提供了不同的 <strong>RHI</strong>。</p>
+<h2 id="platform-specific">Platform specific</h2>
+<h3 id="graphicscontext">GraphicsContext</h3>
+<p>渲染过程中需要用上下文来记录当前线程中与渲染相关的信息，方便在不同的线程中切换。</p>
+<pre><code class="language-c++">class GraphicsContext{
+public:
+    virtual void Init() = 0;
+    virtual void SwapBuffer() = 0;
+};
+</code></pre>
+<h3 id="shader_1">Shader</h3>
+<p>内部提供了初始化以及对 <strong>Shade</strong> 的绑定和解绑。</p>
+<pre><code class="language-c++">class Shader
+{
+public:
+    Shader(const std::string&amp; vertexSrc, const std::string&amp; fragmentSrc);
+    ~Shader();
+
+    void Bind() const;
+    void Unbind() const;
+private:
+    uint32_t m_RendererID;
+};
+</code></pre>
+<h4 id="shaderlibrary">ShaderLibrary</h4>
+<p>在读取 <strong>Shader</strong> 文件时，将其存储在一个 <strong>map</strong> 中，方便之后对其的部分内容进行访问和修改。</p>
+<pre><code class="language-c++">class ShaderLibrary
+{
+public:
+    void Add(const std::string&amp; name, const Ref&lt;Shader&gt;&amp; shader);
+    void Add(const Ref&lt;Shader&gt;&amp; shader);
+    Ref&lt;Shader&gt; Load(const std::string&amp; filepath);
+    Ref&lt;Shader&gt; Load(const std::string&amp; name, const std::string&amp; filepath);
+
+    Ref&lt;Shader&gt; Get(const std::string&amp; name);
+
+    bool Exists(const std::string&amp; name) const;
+private:
+    std::unordered_map&lt;std::string, Ref&lt;Shader&gt;&gt; m_Shaders;
+};
+</code></pre>
+<h3 id="vao-vbo-and-ibo">VAO, VBO and IBO</h3>
+<p><img alt="VAO, VBO and IBO" src="../BasicsOfGameRenderingSources/VAOVBOAndIBO.jpg" /></p>
+<h4 id="vbo">VBO</h4>
+<p><strong>VBO</strong> 是一个存放顶点数组的缓冲区。</p>
+<pre><code class="language-c++">class VertexBuffer
+{
+public:
+    virtual ~VertexBuffer() {}
+
+    virtual void Bind() const = 0;
+    virtual void Unbind() const = 0;
+
+    static VertexBuffer* Create(float* vertices, uint32_t size);
+};
+</code></pre>
+<p>从 <strong>VBO</strong> 中取数需要根据内部存储的数据类型，计算数据起始地址和数据长度。</p>
+<h5 id="bufferelement">BufferElement</h5>
+<p><strong>BufferElement</strong> ：储存单位数据的长度等其他属性。</p>
+<pre><code class="language-c++">struct BufferElement
+{
+    std::string Name;
+    ShaderDataType Type;
+    uint32_t Size;
+    uint32_t Offset;
+    bool Normalized;
+
+    BufferElement() {}
+
+    BufferElement(ShaderDataType type, const std::string&amp; name, bool normalized = false)
+        : Name(name), Type(type), Size(ShaderDataTypeSize(type)), Offset(0), Normalized(normalized)
+    {
+    }
+
+    uint32_t GetComponentCount() const
+    {
+        switch (Type)
+        {
+            case ShaderDataType::Float:   return 1;
+            case ShaderDataType::Float2:  return 2;
+            case ShaderDataType::Float3:  return 3;
+            case ShaderDataType::Float4:  return 4;
+            case ShaderDataType::Mat3:    return 3 * 3;
+            case ShaderDataType::Mat4:    return 4 * 4;
+            case ShaderDataType::Int:     return 1;
+            case ShaderDataType::Int2:    return 2;
+            case ShaderDataType::Int3:    return 3;
+            case ShaderDataType::Int4:    return 4;
+            case ShaderDataType::Bool:    return 1;
+        }
+
+        HZ_CORE_ASSERT(false, &quot;Unknown ShaderDataType!&quot;);
+        return 0;
+    }
+};
+</code></pre>
+<h5 id="bufferlayout">BufferLayout</h5>
+<p><strong>BufferLayout</strong> ：计算缓冲区中数据的布局。</p>
+<pre><code class="language-c++">class BufferLayout
+{
+public:
+    BufferLayout() {}
+
+    BufferLayout(const std::initializer_list&lt;BufferElement&gt;&amp; elements)
+        : m_Elements(elements)
+    {
+        CalculateOffsetsAndStride();
+    }
+
+    inline uint32_t GetStride() const { return m_Stride; }
+    inline const std::vector&lt;BufferElement&gt;&amp; GetElements() const { return m_Elements; }
+
+    std::vector&lt;BufferElement&gt;::iterator begin() { return m_Elements.begin(); }
+    std::vector&lt;BufferElement&gt;::iterator end() { return m_Elements.end(); }
+    std::vector&lt;BufferElement&gt;::const_iterator begin() const { return m_Elements.begin(); }
+    std::vector&lt;BufferElement&gt;::const_iterator end() const { return m_Elements.end(); }
+private:
+    void CalculateOffsetsAndStride()
+    {
+        uint32_t offset = 0;
+        m_Stride = 0;
+        for (auto&amp; element : m_Elements)
+        {
+            element.Offset = offset;
+            offset += element.Size;
+            m_Stride += element.Size;
+        }
+    }
+private:
+    std::vector&lt;BufferElement&gt; m_Elements;
+    uint32_t m_Stride = 0;
+};
+</code></pre>
+<h4 id="vao">VAO</h4>
+<p><strong>VAO</strong> 是一个关于顶点属性的数组，按属性对应 <strong>VBO</strong>（告知 <strong>VBO</strong> 怎么取数据）。</p>
+<pre><code class="language-c++">class VertexArray
+{
+public:
+    virtual ~VertexArray() {}
+
+    virtual void Bind() const = 0;
+    virtual void Unbind() const = 0;
+
+    virtual void AddVertexBuffer(const std::shared_ptr&lt;VertexBuffer&gt;&amp; vertexBuffer) = 0;
+    virtual void SetIndexBuffer(const std::shared_ptr&lt;IndexBuffer&gt;&amp; indexBuffer) = 0;
+
+    virtual const std::vector&lt;std::shared_ptr&lt;VertexBuffer&gt;&gt;&amp; GetVertexBuffers() const = 0;
+    virtual const std::shared_ptr&lt;IndexBuffer&gt;&amp; GetIndexBuffer() const = 0;
+
+    static VertexArray* Create();
+};
+</code></pre>
+<h4 id="ibo">IBO</h4>
+<p><strong>IBO</strong> 是一个存放图元顶点在顶点数组中的索引的缓冲区。</p>
+<pre><code class="language-c++">class IndexBuffer
+{
+public:
+    virtual ~IndexBuffer() {}
+
+    virtual void Bind() const = 0;
+    virtual void Unbind() const = 0;
+
+    virtual uint32_t GetCount() const = 0;
+
+    static IndexBuffer* Create(uint32_t* indices, uint32_t size);
+};
+</code></pre>
+<h3 id="texture">Texture</h3>
+<p><strong>Texture</strong> 的本质就是一个数据缓冲区，只需要把相应的数据存储在相应的位置，便可将值传给相应的顶点。</p>
+<pre><code class="language-c++">class Texture
+{
+public:
+    virtual ~Texture() = default;
+
+    virtual uint32_t GetWidth() const = 0;
+    virtual uint32_t GetHeight() const = 0;
+
+    virtual void Bind(uint32_t slot = 0) const = 0;
+};
+</code></pre>
+<h3 id="framebuffer">Framebuffer</h3>
+<p>其本质是一块 <strong>buffer</strong> 区，用于存储某一帧所有的 <strong>buffer</strong> 数据。</p>
+<pre><code class="language-c++">class Framebuffer
+{
+public:
+    virtual void Bind() = 0;
+    virtual void Unbind() = 0;
+
+    virtual uint32_t GetColorAttachmentRendererID() const = 0;
+
+    virtual const FramebufferSpecification&amp; GetSpecification() const = 0;
+
+    static Ref&lt;Framebuffer&gt; Create(const FramebufferSpecification&amp; spec);
+};
+</code></pre>
+<h2 id="platform-agnostic">Platform agnostic</h2>
+<h3 id="renderer">Renderer</h3>
+<p>包装渲染的基础命令（对于 <strong>CPU</strong>）。</p>
+<pre><code class="language-c++">class Renderer
+{
+public:
+    static void BeginScene();
+    static void EndScene();
+
+    static void Submit(const std::shared_ptr&lt;VertexArray&gt;&amp; vertexArray);
+
+    inline static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
+};
+</code></pre>
+<p>其中，<strong>BeginScene</strong> 负责渲染前的环境设置；<strong>Submit</strong> 会收集渲染指令，存入命令队列中；<strong>EndScene</strong> 表示指令收集结束，开始渲染。</p>
+<h3 id="rendercommand">RenderCommand</h3>
+<p>包装渲染的基础命令（对于 <strong>GPU</strong>）。</p>
+<pre><code class="language-c++">class RenderCommand
+{
+public:
+    inline static void SetClearColor(const glm::vec4&amp; color)
+    {
+        s_RendererAPI-&gt;SetClearColor(color);
+    }
+
+    inline static void Clear()
+    {
+        s_RendererAPI-&gt;Clear();
+    }
+
+    inline static void DrawIndexed(const std::shared_ptr&lt;VertexArray&gt;&amp; vertexArray)
+    {
+        s_RendererAPI-&gt;DrawIndexed(vertexArray);
+    }
+private:
+    static RendererAPI* s_RendererAPI;
+};
+</code></pre>
+<p>实际运行中这些渲染命令会被存入一个队列，从而不断地向 <strong>GPU</strong> 发送指令。</p>
+<h3 id="camera">Camera</h3>
+<h4 id="orthographiccamera">OrthographicCamera</h4>
+<p>对于正交相机，我们需要根据其 <strong>FOV</strong> 等数据计算基于此相机的视角矩阵和投影矩阵，再等这些数据传入 <strong>Shader</strong> 中，从而对图形进行坐标变换。</p>
+<pre><code class="language-c++">class OrthographicCamera
+{
+public:
+    OrthographicCamera(float left, float right, float bottom, float top);
+
+    const glm::vec3&amp; GetPosition() const { return m_Position; }
+    void SetPosition(const glm::vec3&amp; position) { m_Position = position; RecalculateViewMatrix(); }
+
+    float GetRotation() const { return m_Rotation; }
+    void SetRotation(float rotation) { m_Rotation = rotation; RecalculateViewMatrix(); }
+
+    const glm::mat4&amp; GetProjectionMatrix() const { return m_ProjectionMatrix; }
+    const glm::mat4&amp; GetViewMatrix() const { return m_ViewMatrix; }
+    const glm::mat4&amp; GetViewProjectionMatrix() const { return m_ViewProjectionMatrix; }
+private:
+    void RecalculateViewMatrix();
+private:
+    glm::mat4 m_ProjectionMatrix;
+    glm::mat4 m_ViewMatrix;
+    glm::mat4 m_ViewProjectionMatrix;
+
+    glm::vec3 m_Position = { 0.0f, 0.0f, 0.0f };
+    float m_Rotation = 0.0f;
+};
+</code></pre>
+<h1 id="_4">可见性裁剪</h1>
+<h2 id="bvh-culling"><a href="https://blog.csdn.net/air_liang1212/article/details/105520107">BVH Culling</a></h2>
+<p><strong>BVH Culling</strong> 将整个空间不断细分成了不同大小的子包围盒，并用树去管理。</p>
+<p><img alt="BVH Culling" src="../BasicsOfGameRenderingSources/BVHCulling.jpg" /></p>
+<p><strong>BVH</strong> 算法在工业界广泛使用，因为现代游戏场景内动的物体比较多，因此当节点变动后，需要重新构建树状结构，此时要考虑重新构建的成本一定要很低，而 <strong>BVH</strong> 恰好在此有很多优势，因此 <strong>BVH</strong> 适用于开阔动态场景。</p>
+<h2 id="early-z">Early-Z</h2>
+<p>比当前光栅上渲染的图元深度更深的图元将会被丢弃。</p>
+<p><img alt="Early-Z" src="../BasicsOfGameRenderingSources/Early-Z.png" /></p>
+<h1 id="_5">纹理压缩</h1>
+<p>为了满足随机访问图片像素的需求，游戏引擎中一般使用 <strong>Block</strong> 的思想，而不是用传统的图片压缩算法。</p>
+<h2 id="block-compression"><a href="https://zhuanlan.zhihu.com/p/199635682">Block Compression</a></h2>
+<p>以 <strong>DXTC</strong> 格式举例，对于每个划分的小块，取得其中最亮和最暗的像素点，那么我们就可以通过插值处理从而求得二者中间一系列的颜色。</p>
+<p><img alt="Block Compression" src="BasicsOfGameRenderingSources/BlockCompression.jpg.png" /></p>
+<h1 id="_6">建模</h1>
+<h2 id="_7">多边形建模</h2>
+<p><img alt="多边形建模" src="../BasicsOfGameRenderingSources/PolygonModel.jpg" /></p>
+<h2 id="_8">雕刻</h2>
+<p><img alt="雕刻" src="../BasicsOfGameRenderingSources/Carve.jpg" /></p>
+<h2 id="_9">实体扫描</h2>
+<p><img alt="实体扫描" src="../BasicsOfGameRenderingSources/Scan.jpg" /></p>
+<h2 id="_10">程序化建模</h2>
+<p><img alt="程序化建模" src="../BasicsOfGameRenderingSources/ProceduralModel.jpg" /></p>
+<h2 id="_11">比较</h2>
+<p><img alt="比较" src="../BasicsOfGameRenderingSources/Compare.jpg" /></p>
+<h1 id="_12">新的模型管线</h1>
+<p>核心思想是将模型分成多个 <strong>Cluster</strong>，根据这些 <strong>Cluster</strong> 与摄像机的远近来展示不同的细节。</p>
+<p>这要处理的好处在于。</p>
+<ol>
+<li>
+<p>现代 <strong>GPU</strong> 已经可以基于数据，动态生成几何细节，而不是像原先的管线将 <strong>mesh</strong> 数据上传；</p>
+</li>
+<li>
+<p>当你将每个 <strong>cluster</strong> 大小确定好后，由于它的计算都是高效一致的，以相同的 <strong>Cluster</strong> 结构让 <strong>GPU</strong> 来并行处理时，提高了效率；</p>
+</li>
+<li>
+<p>可以对模型进行 <strong>Cluster</strong> 剔除。</p>
+</li>
+</ol>
+<h1 id="_13">资料来源</h1>
+<ol>
+<li>
+<p><a href="https://zhuanlan.zhihu.com/p/501405501"><strong>BVH Culling</strong>。</a></p>
+</li>
+<li>
+<p><a href="https://zhuanlan.zhihu.com/p/501405501"><strong>Block Compression</strong>。</a></p>
+</li>
+<li>
+<p><a href="https://zhuanlan.zhihu.com/p/501405501">新的模型管线。</a></p>
+</li>
+</ol></div>
+        
+        
+    </div>
+
+    
+      <footer class="col-md-12 text-center">
+          
+          
+            <hr>
+            <p>
+            <small><a href='https://github.com/zong4'>Documentation written by Zong.</small><br>
+            
+            <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small>
+            </p>
+          
+
+          
+          
+      </footer>
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../../../js/bootstrap-3.0.3.min.js"></script>
+
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
+        
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    <script>var base_url = "../../.."</script>
+    
+    <script src="../../../js/base.js"></script>
+    <script src="../../../search/main.js"></script>
+
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+    </body>
+
+</html>

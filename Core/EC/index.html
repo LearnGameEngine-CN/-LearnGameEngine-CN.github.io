@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+
+    
+    <title>EC - 游戏引擎学习</title>
+    
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
+    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="../../css/base.min.css" rel="stylesheet">
+    <link href="../../css/cinder.min.css" rel="stylesheet">
+
+    
+        
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
+        
+    
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+            <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+        <![endif]-->
+
+    
+
+     
+</head>
+
+<body>
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+
+            <!-- Main title -->
+
+            
+              <a class="navbar-brand" href="../..">游戏引擎学习</a>
+            
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                
+                
+                    <li >
+                        <a href="../..">家</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../../Introduce/">介绍</a>
+                    </li>
+                
+                
+                
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">核心 <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../EventsSystem/">事件系统</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../LayersSystem/">层级系统</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../InputPolling/">输入池</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../Math/">数学</a>
+</li>
+
+                        
+                            
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="">渲染</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../Rendering/BasicsOfGameRendering/">基础</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                            
+<li >
+    <a href="../Timestep/">时间步长</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../Timer/">计时器</a>
+</li>
+
+                        
+                            
+<li class="active">
+    <a href="./">EC</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">功能 <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../../Function/ImGuiLayer/">ImGui 层</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../Function/Scene/">Scene</a>
+</li>
+
+                        
+                            
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="">Gameplay</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../../Function/Gameplay/GameplayBasics/">基础</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <i class="fas fa-search"></i> Search
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="prev" href="../Timer/">
+                            <i class="fas fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="next" href="../../Function/ImGuiLayer/">
+                            Next <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+    <div class="container">
+        
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="first-level active"><a href="#ecs">ECS</a></li>
+        <li class="first-level "><a href="#ec">EC</a></li>
+            <li class="second-level"><a href="#entity">Entity</a></li>
+                
+            <li class="second-level"><a href="#component">Component</a></li>
+                
+                <li class="third-level"><a href="#_1">基础组件</a></li>
+                <li class="third-level"><a href="#_2">脚本组件</a></li>
+        <li class="first-level "><a href="#_3">资料来源</a></li>
+    </ul>
+</div></div>
+        <div class="col-md-9" role="main">
+
+<h1 id="ecs">ECS</h1>
+<p>一个使用 <strong>ECS</strong> 架构开发的游戏基本结构如下图所示。</p>
+<p><img alt="ECS。" src="../ECSources/ECS.png" /></p>
+<ul>
+<li>
+<p><strong>Entity</strong> 作为一个存放 <strong>Component</strong> 的容器，对外提供 <strong>ID</strong> 以供索引；</p>
+</li>
+<li>
+<p><strong>Component</strong> 用于存放该组件的相关数据；</p>
+</li>
+<li>
+<p><strong>System</strong> 实现 <strong>Component</strong> 间的交互逻辑。</p>
+</li>
+</ul>
+<h1 id="ec">EC</h1>
+<p>相比 <strong>ECS</strong> ，其将 <strong>System</strong> 中的逻辑放入 <strong>Component</strong> 中实现，从而更好的对脚本进行管理。</p>
+<h2 id="entity">Entity</h2>
+<pre><code class="language-c++">class Entity
+{
+public:
+    Entity() = default;
+    Entity(entt::entity handle, Scene* scene);
+    Entity(const Entity&amp; other) = default;
+
+    template&lt;typename T, typename... Args&gt;
+    T&amp; AddComponent(Args&amp;&amp;... args)
+    {
+        HZ_CORE_ASSERT(!HasComponent&lt;T&gt;(), &quot;Entity already has component!&quot;);
+        return m_Scene-&gt;m_Registry.emplace&lt;T&gt;(m_EntityHandle, std::forward&lt;Args&gt;(args)...);
+    }
+
+    template&lt;typename T&gt;
+    T&amp; GetComponent()
+    {
+        HZ_CORE_ASSERT(HasComponent&lt;T&gt;(), &quot;Entity does not have component!&quot;);
+        return m_Scene-&gt;m_Registry.get&lt;T&gt;(m_EntityHandle);
+    }
+
+    template&lt;typename T&gt;
+    bool HasComponent()
+    {
+        return m_Scene-&gt;m_Registry.has&lt;T&gt;(m_EntityHandle);
+    }
+
+    template&lt;typename T&gt;
+    void RemoveComponent()
+    {
+        HZ_CORE_ASSERT(HasComponent&lt;T&gt;(), &quot;Entity does not have component!&quot;);
+        m_Scene-&gt;m_Registry.remove&lt;T&gt;(m_EntityHandle);
+    }
+
+    operator bool() const { return m_EntityHandle != 0; }
+private:
+    entt::entity m_EntityHandle{ 0 };
+    Scene* m_Scene = nullptr;
+};
+</code></pre>
+<h2 id="component">Component</h2>
+<h3 id="_1">基础组件</h3>
+<p>均只存储基础的属性。</p>
+<pre><code class="language-c++">struct TagComponent
+{
+    std::string Tag;
+
+    TagComponent() = default;
+    TagComponent(const TagComponent&amp;) = default;
+    TagComponent(const std::string&amp; tag)
+        : Tag(tag) {}
+};
+
+struct TransformComponent
+{
+    glm::mat4 Transform{ 1.0f };
+    TransformComponent() = default;
+    TransformComponent(const TransformComponent&amp;) = default;
+    TransformComponent(const glm::mat4 &amp; transform)
+        : Transform(transform) {}
+    operator glm::mat4&amp; () { return Transform; }
+    operator const glm::mat4&amp; () const { return Transform; }
+};
+
+struct SpriteRendererComponent
+{
+    glm::vec4 Color{ 1.0f, 1.0f, 1.0f, 1.0f };
+    SpriteRendererComponent() = default;
+    SpriteRendererComponent(const SpriteRendererComponent&amp;) = default;
+    SpriteRendererComponent(const glm::vec4&amp; color)
+        : Color(color) {}
+};
+
+struct CameraComponent
+{
+    Hazel::Camera Camera;
+    bool Primary = true; // TODO: think about moving to Scene
+
+    CameraComponent() = default;
+    CameraComponent(const CameraComponent&amp;) = default;
+    CameraComponent(const glm::mat4&amp; projection)
+        : Camera(projection) {}
+};
+</code></pre>
+<h3 id="_2">脚本组件</h3>
+<p>该组件支持填入 <strong>ScriptableEntity</strong>，用 <strong>ScriptableEntity</strong> 实现逻辑，而不是直接在 <strong>NativeScriptComponent</strong> 实现是因为实现逻辑可能需要调用其他的组件，而 <strong>Component</strong> 是不允许直接调用其他组件的。</p>
+<pre><code class="language-c++">struct NativeScriptComponent
+{
+    ScriptableEntity* Instance = nullptr;
+
+    ScriptableEntity*(*InstantiateScript)();
+    void (*DestroyScript)(NativeScriptComponent*);
+
+    template&lt;typename T&gt;
+    void Bind()
+    {
+        InstantiateScript = []() { return static_cast&lt;ScriptableEntity*&gt;(new T()); };
+        DestroyScript = [](NativeScriptComponent* nsc) { delete nsc-&gt;Instance; nsc-&gt;Instance = nullptr; };
+    }
+</code></pre>
+<pre><code class="language-c++">class ScriptableEntity
+{
+public:
+    virtual ~ScriptableEntity() {}
+
+    template&lt;typename T&gt;
+    T&amp; GetComponent()
+    {
+        return m_Entity.GetComponent&lt;T&gt;();
+    }
+protected:
+    virtual void OnCreate() {}
+    virtual void OnDestroy() {}
+    virtual void OnUpdate(Timestep ts) {}
+private:
+    Entity m_Entity;
+    friend class Scene;
+};
+</code></pre>
+<h1 id="_3">资料来源</h1>
+<ol>
+<li><a href="https://zhuanlan.zhihu.com/p/30538626"><strong>ECS</strong>。</a></li>
+</ol></div>
+        
+        
+    </div>
+
+    
+      <footer class="col-md-12 text-center">
+          
+          
+            <hr>
+            <p>
+            <small><a href='https://github.com/zong4'>Documentation written by Zong.</small><br>
+            
+            <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small>
+            </p>
+          
+
+          
+          
+      </footer>
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../../js/bootstrap-3.0.3.min.js"></script>
+
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
+        
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    <script>var base_url = "../.."</script>
+    
+    <script src="../../js/base.js"></script>
+    <script src="../../search/main.js"></script>
+
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+    </body>
+
+</html>

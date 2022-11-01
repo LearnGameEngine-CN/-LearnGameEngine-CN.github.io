@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+
+    
+    <title>Scene - 游戏引擎学习</title>
+    
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
+    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="../../css/base.min.css" rel="stylesheet">
+    <link href="../../css/cinder.min.css" rel="stylesheet">
+
+    
+        
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
+        
+    
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+            <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+        <![endif]-->
+
+    
+
+     
+</head>
+
+<body>
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+
+            <!-- Main title -->
+
+            
+              <a class="navbar-brand" href="../..">游戏引擎学习</a>
+            
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                
+                
+                    <li >
+                        <a href="../..">家</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../../Introduce/">介绍</a>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">核心 <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../../Core/EventsSystem/">事件系统</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../Core/LayersSystem/">层级系统</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../Core/InputPolling/">输入池</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../Core/Math/">数学</a>
+</li>
+
+                        
+                            
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="">渲染</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../../Core/Rendering/BasicsOfGameRendering/">基础</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                            
+<li >
+    <a href="../../Core/Timestep/">时间步长</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../Core/Timer/">计时器</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../Core/EC/">EC</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">功能 <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../ImGuiLayer/">ImGui 层</a>
+</li>
+
+                        
+                            
+<li class="active">
+    <a href="./">Scene</a>
+</li>
+
+                        
+                            
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="">Gameplay</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../Gameplay/GameplayBasics/">基础</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <i class="fas fa-search"></i> Search
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="prev" href="../ImGuiLayer/">
+                            <i class="fas fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="next" href="../Gameplay/GameplayBasics/">
+                            Next <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+    <div class="container">
+        
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="first-level active"><a href="#_1">结构</a></li>
+            <li class="second-level"><a href="#scene">Scene</a></li>
+                
+            <li class="second-level"><a href="#_2">序列化和反序列化</a></li>
+                
+    </ul>
+</div></div>
+        <div class="col-md-9" role="main">
+
+<h1 id="_1">结构</h1>
+<p><strong>Scene</strong> 就是这张图中的 <strong>World</strong>，用于存放场景中所有的 <strong>Entity</strong> 以及更新场景中的 <strong>System</strong>。</p>
+<p><img alt="ECS。" src="../SceneSources/ECS.png" /></p>
+<h2 id="scene">Scene</h2>
+<pre><code class="language-c++">class Scene
+{
+public:
+    Scene();
+    ~Scene();
+    Entity CreateEntity(const std::string&amp; name = std::string());
+    void DestroyEntity(Entity entity);
+    void OnUpdate(Timestep ts);
+    void OnViewportResize(uint32_t width, uint32_t height);
+private:
+    template&lt;typename T&gt;
+    void OnComponentAdded(Entity entity, T&amp; component);
+private:
+    entt::registry m_Registry;
+    uint32_t m_ViewportWidth = 0, m_ViewportHeight = 0;
+
+    friend class Entity;
+    friend class SceneSerializer;
+    friend class SceneHierarchyPanel;
+};
+</code></pre>
+<h2 id="_2">序列化和反序列化</h2>
+<p>对于 <strong>Scene</strong> 来说最重要的就是存储和读取功能。</p>
+<pre><code class="language-c++">class SceneSerializer
+{
+public:
+    SceneSerializer(const Ref&lt;Scene&gt;&amp; scene);
+
+    void Serialize(const std::string&amp; filepath);
+    void SerializeRuntime(const std::string&amp; filepath);
+
+    bool Deserialize(const std::string&amp; filepath);
+    bool DeserializeRuntime(const std::string&amp; filepath);
+private:
+    Ref&lt;Scene&gt; m_Scene;
+};
+</code></pre>
+<p>这里通过 <strong>YAML</strong> 实现将场景存入文本文件。</p>
+<ul>
+<li>定义 <strong>YAML</strong> 接口。</li>
+</ul>
+<pre><code class="language-c++">namespace YAML {
+
+    template&lt;&gt;
+    struct convert&lt;glm::vec3&gt;
+    {
+        static Node encode(const glm::vec3&amp; rhs)
+        {
+            Node node;
+            node.push_back(rhs.x);
+            node.push_back(rhs.y);
+            node.push_back(rhs.z);
+            return node;
+        }
+
+        static bool decode(const Node&amp; node, glm::vec3&amp; rhs)
+        {
+            if (!node.IsSequence() || node.size() != 3)
+                return false;
+
+            rhs.x = node[0].as&lt;float&gt;();
+            rhs.y = node[1].as&lt;float&gt;();
+            rhs.z = node[2].as&lt;float&gt;();
+            return true;
+        }
+    };
+
+    template&lt;&gt;
+    struct convert&lt;glm::vec4&gt;
+    {
+        static Node encode(const glm::vec4&amp; rhs)
+        {
+            Node node;
+            node.push_back(rhs.x);
+            node.push_back(rhs.y);
+            node.push_back(rhs.z);
+            node.push_back(rhs.w);
+            return node;
+        }
+
+        static bool decode(const Node&amp; node, glm::vec4&amp; rhs)
+        {
+            if (!node.IsSequence() || node.size() != 4)
+                return false;
+
+            rhs.x = node[0].as&lt;float&gt;();
+            rhs.y = node[1].as&lt;float&gt;();
+            rhs.z = node[2].as&lt;float&gt;();
+            rhs.w = node[3].as&lt;float&gt;();
+            return true;
+        }
+    };
+}
+</code></pre>
+<ul>
+<li>调用 <strong>YAML</strong> 接口序列化和反向序列化场景。</li>
+</ul>
+<pre><code class="language-c++">namespace Hazel {
+
+    YAML::Emitter&amp; operator&lt;&lt;(YAML::Emitter&amp; out, const glm::vec3&amp; v)
+    {
+        out &lt;&lt; YAML::Flow;
+        out &lt;&lt; YAML::BeginSeq &lt;&lt; v.x &lt;&lt; v.y &lt;&lt; v.z &lt;&lt; YAML::EndSeq;
+        return out;
+    }
+
+    YAML::Emitter&amp; operator&lt;&lt;(YAML::Emitter&amp; out, const glm::vec4&amp; v)
+    {
+        out &lt;&lt; YAML::Flow;
+        out &lt;&lt; YAML::BeginSeq &lt;&lt; v.x &lt;&lt; v.y &lt;&lt; v.z &lt;&lt; v.w &lt;&lt; YAML::EndSeq;
+        return out;
+    }
+
+    SceneSerializer::SceneSerializer(const Ref&lt;Scene&gt;&amp; scene)
+        : m_Scene(scene)
+    {
+    }
+
+    static void SerializeEntity(YAML::Emitter&amp; out, Entity entity)
+    {
+        out &lt;&lt; YAML::BeginMap; // Entity
+        out &lt;&lt; YAML::Key &lt;&lt; &quot;Entity&quot; &lt;&lt; YAML::Value &lt;&lt; &quot;12837192831273&quot;; // TODO: Entity ID goes here
+
+        if (entity.HasComponent&lt;TagComponent&gt;())
+        {
+            out &lt;&lt; YAML::Key &lt;&lt; &quot;TagComponent&quot;;
+            out &lt;&lt; YAML::BeginMap; // TagComponent
+
+            auto&amp; tag = entity.GetComponent&lt;TagComponent&gt;().Tag;
+            out &lt;&lt; YAML::Key &lt;&lt; &quot;Tag&quot; &lt;&lt; YAML::Value &lt;&lt; tag;
+
+            out &lt;&lt; YAML::EndMap; // TagComponent
+        }
+
+        if (entity.HasComponent&lt;TransformComponent&gt;())
+        {
+            out &lt;&lt; YAML::Key &lt;&lt; &quot;TransformComponent&quot;;
+            out &lt;&lt; YAML::BeginMap; // TransformComponent
+
+            auto&amp; tc = entity.GetComponent&lt;TransformComponent&gt;();
+            out &lt;&lt; YAML::Key &lt;&lt; &quot;Translation&quot; &lt;&lt; YAML::Value &lt;&lt; tc.Translation;
+            out &lt;&lt; YAML::Key &lt;&lt; &quot;Rotation&quot; &lt;&lt; YAML::Value &lt;&lt; tc.Rotation;
+            out &lt;&lt; YAML::Key &lt;&lt; &quot;Scale&quot; &lt;&lt; YAML::Value &lt;&lt; tc.Scale;
+
+            out &lt;&lt; YAML::EndMap; // TransformComponent
+        }
+
+        if (entity.HasComponent&lt;CameraComponent&gt;())
+        {
+            out &lt;&lt; YAML::Key &lt;&lt; &quot;CameraComponent&quot;;
+            out &lt;&lt; YAML::BeginMap; // CameraComponent
+
+            auto&amp; cameraComponent = entity.GetComponent&lt;CameraComponent&gt;();
+            auto&amp; camera = cameraComponent.Camera;
+
+            out &lt;&lt; YAML::Key &lt;&lt; &quot;Camera&quot; &lt;&lt; YAML::Value;
+            out &lt;&lt; YAML::BeginMap; // Camera
+            out &lt;&lt; YAML::Key &lt;&lt; &quot;ProjectionType&quot; &lt;&lt; YAML::Value &lt;&lt; (int)camera.GetProjectionType();
+            out &lt;&lt; YAML::Key &lt;&lt; &quot;PerspectiveFOV&quot; &lt;&lt; YAML::Value &lt;&lt; camera.GetPerspectiveVerticalFOV();
+            out &lt;&lt; YAML::Key &lt;&lt; &quot;PerspectiveNear&quot; &lt;&lt; YAML::Value &lt;&lt; camera.GetPerspectiveNearClip();
+            out &lt;&lt; YAML::Key &lt;&lt; &quot;PerspectiveFar&quot; &lt;&lt; YAML::Value &lt;&lt; camera.GetPerspectiveFarClip();
+            out &lt;&lt; YAML::Key &lt;&lt; &quot;OrthographicSize&quot; &lt;&lt; YAML::Value &lt;&lt; camera.GetOrthographicSize();
+            out &lt;&lt; YAML::Key &lt;&lt; &quot;OrthographicNear&quot; &lt;&lt; YAML::Value &lt;&lt; camera.GetOrthographicNearClip();
+            out &lt;&lt; YAML::Key &lt;&lt; &quot;OrthographicFar&quot; &lt;&lt; YAML::Value &lt;&lt; camera.GetOrthographicFarClip();
+            out &lt;&lt; YAML::EndMap; // Camera
+
+            out &lt;&lt; YAML::Key &lt;&lt; &quot;Primary&quot; &lt;&lt; YAML::Value &lt;&lt; cameraComponent.Primary;
+            out &lt;&lt; YAML::Key &lt;&lt; &quot;FixedAspectRatio&quot; &lt;&lt; YAML::Value &lt;&lt; cameraComponent.FixedAspectRatio;
+
+            out &lt;&lt; YAML::EndMap; // CameraComponent
+        }
+
+        if (entity.HasComponent&lt;SpriteRendererComponent&gt;())
+        {
+            out &lt;&lt; YAML::Key &lt;&lt; &quot;SpriteRendererComponent&quot;;
+            out &lt;&lt; YAML::BeginMap; // SpriteRendererComponent
+
+            auto&amp; spriteRendererComponent = entity.GetComponent&lt;SpriteRendererComponent&gt;();
+            out &lt;&lt; YAML::Key &lt;&lt; &quot;Color&quot; &lt;&lt; YAML::Value &lt;&lt; spriteRendererComponent.Color;
+
+            out &lt;&lt; YAML::EndMap; // SpriteRendererComponent
+        }
+
+        out &lt;&lt; YAML::EndMap; // Entity
+    }
+
+    void SceneSerializer::Serialize(const std::string&amp; filepath)
+    {
+        YAML::Emitter out;
+        out &lt;&lt; YAML::BeginMap;
+        out &lt;&lt; YAML::Key &lt;&lt; &quot;Scene&quot; &lt;&lt; YAML::Value &lt;&lt; &quot;Untitled&quot;;
+        out &lt;&lt; YAML::Key &lt;&lt; &quot;Entities&quot; &lt;&lt; YAML::Value &lt;&lt; YAML::BeginSeq;
+        m_Scene-&gt;m_Registry.each([&amp;](auto entityID)
+        {
+            Entity entity = { entityID, m_Scene.get() };
+            if (!entity)
+                return;
+
+            SerializeEntity(out, entity);
+        });
+        out &lt;&lt; YAML::EndSeq;
+        out &lt;&lt; YAML::EndMap;
+
+        std::ofstream fout(filepath);
+        fout &lt;&lt; out.c_str();
+    }
+
+    void SceneSerializer::SerializeRuntime(const std::string&amp; filepath)
+    {
+        // Not implemented
+        HZ_CORE_ASSERT(false);
+    }
+
+    bool SceneSerializer::Deserialize(const std::string&amp; filepath)
+    {
+        std::ifstream stream(filepath);
+        std::stringstream strStream;
+        strStream &lt;&lt; stream.rdbuf();
+
+        YAML::Node data = YAML::Load(strStream.str());
+        if (!data[&quot;Scene&quot;])
+            return false;
+
+        std::string sceneName = data[&quot;Scene&quot;].as&lt;std::string&gt;();
+        HZ_CORE_TRACE(&quot;Deserializing scene '{0}'&quot;, sceneName);
+
+        auto entities = data[&quot;Entities&quot;];
+        if (entities)
+        {
+            for (auto entity : entities)
+            {
+                uint64_t uuid = entity[&quot;Entity&quot;].as&lt;uint64_t&gt;(); // TODO
+
+                std::string name;
+                auto tagComponent = entity[&quot;TagComponent&quot;];
+                if (tagComponent)
+                    name = tagComponent[&quot;Tag&quot;].as&lt;std::string&gt;();
+
+                HZ_CORE_TRACE(&quot;Deserialized entity with ID = {0}, name = {1}&quot;, uuid, name);
+
+                Entity deserializedEntity = m_Scene-&gt;CreateEntity(name);
+
+                auto transformComponent = entity[&quot;TransformComponent&quot;];
+                if (transformComponent)
+                {
+                    // Entities always have transforms
+                    auto&amp; tc = deserializedEntity.GetComponent&lt;TransformComponent&gt;();
+                    tc.Translation = transformComponent[&quot;Translation&quot;].as&lt;glm::vec3&gt;();
+                    tc.Rotation = transformComponent[&quot;Rotation&quot;].as&lt;glm::vec3&gt;();
+                    tc.Scale = transformComponent[&quot;Scale&quot;].as&lt;glm::vec3&gt;();
+                }
+
+                auto cameraComponent = entity[&quot;CameraComponent&quot;];
+                if (cameraComponent)
+                {
+                    auto&amp; cc = deserializedEntity.AddComponent&lt;CameraComponent&gt;();
+
+                    auto&amp; cameraProps = cameraComponent[&quot;Camera&quot;];
+                    cc.Camera.SetProjectionType((SceneCamera::ProjectionType)cameraProps[&quot;ProjectionType&quot;].as&lt;int&gt;());
+
+                    cc.Camera.SetPerspectiveVerticalFOV(cameraProps[&quot;PerspectiveFOV&quot;].as&lt;float&gt;());
+                    cc.Camera.SetPerspectiveNearClip(cameraProps[&quot;PerspectiveNear&quot;].as&lt;float&gt;());
+                    cc.Camera.SetPerspectiveFarClip(cameraProps[&quot;PerspectiveFar&quot;].as&lt;float&gt;());
+
+                    cc.Camera.SetOrthographicSize(cameraProps[&quot;OrthographicSize&quot;].as&lt;float&gt;());
+                    cc.Camera.SetOrthographicNearClip(cameraProps[&quot;OrthographicNear&quot;].as&lt;float&gt;());
+                    cc.Camera.SetOrthographicFarClip(cameraProps[&quot;OrthographicFar&quot;].as&lt;float&gt;());
+
+                    cc.Primary = cameraComponent[&quot;Primary&quot;].as&lt;bool&gt;();
+                    cc.FixedAspectRatio = cameraComponent[&quot;FixedAspectRatio&quot;].as&lt;bool&gt;();
+                }
+
+                auto spriteRendererComponent = entity[&quot;SpriteRendererComponent&quot;];
+                if (spriteRendererComponent)
+                {
+                    auto&amp; src = deserializedEntity.AddComponent&lt;SpriteRendererComponent&gt;();
+                    src.Color = spriteRendererComponent[&quot;Color&quot;].as&lt;glm::vec4&gt;();
+                }
+            }
+        }
+
+        return true;
+    }
+
+    bool SceneSerializer::DeserializeRuntime(const std::string&amp; filepath)
+    {
+        // Not implemented
+        HZ_CORE_ASSERT(false);
+        return false;
+    }
+
+}
+</code></pre></div>
+        
+        
+    </div>
+
+    
+      <footer class="col-md-12 text-center">
+          
+          
+            <hr>
+            <p>
+            <small><a href='https://github.com/zong4'>Documentation written by Zong.</small><br>
+            
+            <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small>
+            </p>
+          
+
+          
+          
+      </footer>
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../../js/bootstrap-3.0.3.min.js"></script>
+
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
+        
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    <script>var base_url = "../.."</script>
+    
+    <script src="../../js/base.js"></script>
+    <script src="../../search/main.js"></script>
+
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+    </body>
+
+</html>
