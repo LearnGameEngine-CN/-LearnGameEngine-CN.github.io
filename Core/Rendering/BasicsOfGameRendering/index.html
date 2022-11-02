@@ -120,6 +120,12 @@
 </li>
 
         
+            
+<li >
+    <a href="../SpecialRendering/">光照</a>
+</li>
+
+        
     </ul>
   </li>
 
@@ -196,7 +202,7 @@
                         </a>
                     </li>
                     <li >
-                        <a rel="next" href="../../Timestep/">
+                        <a rel="next" href="../SpecialRendering/">
                             Next <i class="fas fa-arrow-right"></i>
                         </a>
                     </li>
@@ -226,6 +232,7 @@
                 <li class="third-level"><a href="#vao-vbo-and-ibo">VAO, VBO and IBO</a></li>
                 <li class="third-level"><a href="#texture">Texture</a></li>
                 <li class="third-level"><a href="#framebuffer">Framebuffer</a></li>
+                <li class="third-level"><a href="#uniformbuffer">UniformBuffer</a></li>
             <li class="second-level"><a href="#platform-agnostic">Platform agnostic</a></li>
                 
                 <li class="third-level"><a href="#renderer">Renderer</a></li>
@@ -464,6 +471,17 @@ public:
     virtual const FramebufferSpecification&amp; GetSpecification() const = 0;
 
     static Ref&lt;Framebuffer&gt; Create(const FramebufferSpecification&amp; spec);
+};
+</code></pre>
+<h3 id="uniformbuffer">UniformBuffer</h3>
+<p>为 <strong>Shader</strong> 中的 <strong>Uniform</strong> 单独开辟一片内存，在重复利用相同的 <strong>Uniform</strong> 数据时可以提高效率。</p>
+<pre><code class="language-c++">class UniformBuffer
+{
+public:
+    virtual ~UniformBuffer() {}
+    virtual void SetData(const void* data, uint32_t size, uint32_t offset = 0) = 0;
+
+    static Ref&lt;UniformBuffer&gt; Create(uint32_t size, uint32_t binding);
 };
 </code></pre>
 <h2 id="platform-agnostic">Platform agnostic</h2>

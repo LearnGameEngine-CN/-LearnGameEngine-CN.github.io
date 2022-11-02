@@ -120,6 +120,12 @@
 </li>
 
         
+            
+<li >
+    <a href="../Rendering/SpecialRendering/">光照</a>
+</li>
+
+        
     </ul>
   </li>
 
@@ -522,11 +528,12 @@ const char* GetName() const override { return #type; }
 </code></pre>
 <p>其中 <strong>Variadic Arguments</strong> 表示可变的参数，<strong>__debugbreak</strong> 可以让程序在运行到此处时自动断点。</p>
 <h2 id="stdfunction">std::function</h2>
-<blockquote>
-<p>Class template std::function is a general-purpose polymorphic function wrapper. Instances of std::function can store, copy, and invoke any Callable target – functions, lambda expressions, bind expressions, or other function objects, as well as pointers to member functions and pointers to data members.
+<pre><code>Class template std::function is a general-purpose polymorphic function wrapper. Instances of std::function can store, copy, and invoke any Callable target – functions, lambda expressions, bind expressions, or other function objects, as well as pointers to member functions and pointers to data members.
+
 The stored callable object is called the target of std::function. If a std::function contains no target, it is called empty. Invoking the target of an empty std::function results in std::bad_function_call exception being thrown.
-std::function satisfies the requirements of CopyConstructible and CopyAssignable.</p>
-</blockquote>
+
+std::function satisfies the requirements of CopyConstructible and CopyAssignable.
+</code></pre>
 <p><strong>std::function</strong> 是一个可调用对象包装器，是一个类模板，可以容纳除了类成员函数指针之外的所有可调用对象，它可以用统一的方式处理函数、函数对象和函数指针，并允许保存和延迟它们的执行。</p>
 <p><strong>std::function</strong> 可以取代函数指针的作用，因为它可以延迟函数的执行，特别适合作为回调函数使用。它比普通函数指针更加的灵活和便利。</p>
 <p>因此，<strong>std::function</strong> 的作用可以归结成。</p>

@@ -120,6 +120,12 @@
 </li>
 
         
+            
+<li >
+    <a href="../Rendering/SpecialRendering/">光照</a>
+</li>
+
+        
     </ul>
   </li>
 
@@ -191,7 +197,7 @@
                         </a>
                     </li>
                     <li >
-                        <a rel="prev" href="../Rendering/BasicsOfGameRendering/">
+                        <a rel="prev" href="../Rendering/SpecialRendering/">
                             <i class="fas fa-arrow-left"></i> Previous
                         </a>
                     </li>
@@ -265,9 +271,8 @@ while (!quit)
 <h3 id="semi-fixed-timestep">Semi-fixed timestep</h3>
 <p>类似于 <strong>Unity</strong> 的 <strong>FixedUpdate</strong> 函数，<strong>Unity</strong> 里的 <strong>Update</strong> 函数是每帧执行一次的函数，而 <strong>FixedUpdate</strong> 每帧可以执行任意多的次数，这取决于 <strong>Unity</strong> 的 <strong>time</strong> 相关的设置与游戏里实际的 <strong>framerate</strong>，如下图所示。</p>
 <p><img alt="Semi-fixed timeStep。" src="../TimestepResources/Semi-fixedTimestep.png" /></p>
-<blockquote>
-<p>FixedUpdate is used when you need to have something persistently cleanly applying at the same rate, and that’s usually physics, because physics needs to calculate stuff using time as an actual parameter.</p>
-</blockquote>
+<pre><code>FixedUpdate is used when you need to have something persistently cleanly applying at the same rate, and that’s usually physics, because physics needs to calculate stuff using time as an actual parameter.
+</code></pre>
 <p>初步思路是，当一帧所用时长，即 <strong>DeltaTime</strong> 大于规定的每帧的最大值时，在该帧多次处理 <strong>DeltaTime</strong>，类似于补帧操作，把 <strong>DeltaTime</strong> 细化为多个更小的 <strong>DeltaTime</strong>，相关代码如下：</p>
 <pre><code class="language-c++">double t = 0.0;
 double dt = 1 / 60.0;// 这是一个常量, 代表delta time的最大值
