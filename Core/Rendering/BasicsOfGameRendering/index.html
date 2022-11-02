@@ -229,7 +229,9 @@
                 
                 <li class="third-level"><a href="#graphicscontext">GraphicsContext</a></li>
                 <li class="third-level"><a href="#shader_1">Shader</a></li>
-                <li class="third-level"><a href="#vao-vbo-and-ibo">VAO, VBO and IBO</a></li>
+                <li class="third-level"><a href="#vbo">VBO</a></li>
+                <li class="third-level"><a href="#vao">VAO</a></li>
+                <li class="third-level"><a href="#ibo">IBO</a></li>
                 <li class="third-level"><a href="#texture">Texture</a></li>
                 <li class="third-level"><a href="#framebuffer">Framebuffer</a></li>
                 <li class="third-level"><a href="#uniformbuffer">UniformBuffer</a></li>
@@ -302,7 +304,6 @@ private:
     uint32_t m_RendererID;
 };
 </code></pre>
-<h4 id="shaderlibrary">ShaderLibrary</h4>
 <p>在读取 <strong>Shader</strong> 文件时，将其存储在一个 <strong>map</strong> 中，方便之后对其的部分内容进行访问和修改。</p>
 <pre><code class="language-c++">class ShaderLibrary
 {
@@ -319,9 +320,8 @@ private:
     std::unordered_map&lt;std::string, Ref&lt;Shader&gt;&gt; m_Shaders;
 };
 </code></pre>
-<h3 id="vao-vbo-and-ibo">VAO, VBO and IBO</h3>
+<h3 id="vbo">VBO</h3>
 <p><img alt="VAO, VBO and IBO" src="../BasicsOfGameRenderingSources/VAOVBOAndIBO.jpg" /></p>
-<h4 id="vbo">VBO</h4>
 <p><strong>VBO</strong> 是一个存放顶点数组的缓冲区。</p>
 <pre><code class="language-c++">class VertexBuffer
 {
@@ -335,7 +335,6 @@ public:
 };
 </code></pre>
 <p>从 <strong>VBO</strong> 中取数需要根据内部存储的数据类型，计算数据起始地址和数据长度。</p>
-<h5 id="bufferelement">BufferElement</h5>
 <p><strong>BufferElement</strong> ：储存单位数据的长度等其他属性。</p>
 <pre><code class="language-c++">struct BufferElement
 {
@@ -374,7 +373,6 @@ public:
     }
 };
 </code></pre>
-<h5 id="bufferlayout">BufferLayout</h5>
 <p><strong>BufferLayout</strong> ：计算缓冲区中数据的布局。</p>
 <pre><code class="language-c++">class BufferLayout
 {
@@ -411,7 +409,7 @@ private:
     uint32_t m_Stride = 0;
 };
 </code></pre>
-<h4 id="vao">VAO</h4>
+<h3 id="vao">VAO</h3>
 <p><strong>VAO</strong> 是一个关于顶点属性的数组，按属性对应 <strong>VBO</strong>（告知 <strong>VBO</strong> 怎么取数据）。</p>
 <pre><code class="language-c++">class VertexArray
 {
@@ -430,7 +428,7 @@ public:
     static VertexArray* Create();
 };
 </code></pre>
-<h4 id="ibo">IBO</h4>
+<h3 id="ibo">IBO</h3>
 <p><strong>IBO</strong> 是一个存放图元顶点在顶点数组中的索引的缓冲区。</p>
 <pre><code class="language-c++">class IndexBuffer
 {
@@ -524,7 +522,6 @@ private:
 </code></pre>
 <p>实际运行中这些渲染命令会被存入一个队列，从而不断地向 <strong>GPU</strong> 发送指令。</p>
 <h3 id="camera">Camera</h3>
-<h4 id="orthographiccamera">OrthographicCamera</h4>
 <p>对于正交相机，我们需要根据其 <strong>FOV</strong> 等数据计算基于此相机的视角矩阵和投影矩阵，再等这些数据传入 <strong>Shader</strong> 中，从而对图形进行坐标变换。</p>
 <pre><code class="language-c++">class OrthographicCamera
 {
@@ -576,8 +573,7 @@ private:
 <h2 id="_11">比较</h2>
 <p><img alt="比较" src="../BasicsOfGameRenderingSources/Compare.jpg" /></p>
 <h1 id="_12">新的模型管线</h1>
-<p>核心思想是将模型分成多个 <strong>Cluster</strong>，根据这些 <strong>Cluster</strong> 与摄像机的远近来展示不同的细节。</p>
-<p>这要处理的好处在于。</p>
+<p>核心思想是将模型分成多个 <strong>Cluster</strong>，根据这些 <strong>Cluster</strong> 与摄像机的远近来展示不同的细节。这要处理的好处在于：</p>
 <ol>
 <li>
 <p>现代 <strong>GPU</strong> 已经可以基于数据，动态生成几何细节，而不是像原先的管线将 <strong>mesh</strong> 数据上传；</p>

@@ -260,7 +260,7 @@ private:
 <p><strong>lambda</strong> 表达式的语法形式可简单归纳如下。</p>
 <pre><code class="language-c++">[ capture ] ( params ) opt -&gt; ret { body; };
 </code></pre>
-<p>其中 <strong>capture</strong> 取不同的值有不同的含义。</p>
+<p>其中 <strong>capture</strong> 取不同的值有不同的含义：</p>
 <ul>
 <li>[] 不捕获任何变量；</li>
 <li>[&amp;] 捕获外部作用域中所有变量，并作为引用在函数体中使用（按引用捕获）；</li>

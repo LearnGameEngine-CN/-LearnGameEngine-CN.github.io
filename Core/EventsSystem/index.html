@@ -508,7 +508,7 @@ private:
 </code></pre>
 <h1 id="_3">补充知识</h1>
 <h2 id="define">#define</h2>
-<p>游戏引擎中为了简化代码，常常会创建许多宏定义，如。</p>
+<p>游戏引擎中为了简化代码，常常会创建许多宏定义，如：</p>
 <pre><code class="language-c++">#define EVENT_CLASS_TYPE(type) \
 static EventType GetStaticType() { return EventType::##type; }\
 const EventType GetEventType() const override { return GetStaticType(); }\
@@ -536,7 +536,7 @@ std::function satisfies the requirements of CopyConstructible and CopyAssignable
 </code></pre>
 <p><strong>std::function</strong> 是一个可调用对象包装器，是一个类模板，可以容纳除了类成员函数指针之外的所有可调用对象，它可以用统一的方式处理函数、函数对象和函数指针，并允许保存和延迟它们的执行。</p>
 <p><strong>std::function</strong> 可以取代函数指针的作用，因为它可以延迟函数的执行，特别适合作为回调函数使用。它比普通函数指针更加的灵活和便利。</p>
-<p>因此，<strong>std::function</strong> 的作用可以归结成。</p>
+<p>因此，<strong>std::function</strong> 的作用可以归结成：</p>
 <ul>
 <li>
 <p><strong>std::function</strong> 对 <strong>C++</strong> 中各种可调用实体（普通函数、<strong>Lambda</strong> 表达式、函数指针以及其它函数对象等）的封装，形成一个新的可调用的 <strong>std::function</strong> 对象以简化调用；</p>
@@ -557,7 +557,7 @@ std::function &lt;void(int)&gt; b = static_cast&lt;fun_ptr_b&gt;(print);
   /* unspecified */ bind (Fn&amp;&amp; fn, Args&amp;&amp;... args);
 </code></pre>
 <p><strong>bind</strong> 函数接受一个逗号分割的参数列表 <strong>args</strong>，对应给定函数对象 <strong>fn</strong> 的参数，返回一个新的函数对象。</p>
-<p>参数列表 <strong>args</strong> 中。</p>
+<p>参数列表 <strong>args</strong> 中：</p>
 <ul>
 <li>
 <p>如果绑定到一个值，则调用返回的函数对象将始终使用该值作为参数；</p>
@@ -615,14 +615,14 @@ std::function &lt;void(int)&gt; b = static_cast&lt;fun_ptr_b&gt;(print);
 <p>下面的图示展示了 <strong>GPU</strong> 和显示器绘制帧率不同步导致屏幕撕扯的情况。</p>
 <p><img alt="GPU 和显示器绘制帧率" src="../EventsSystemResources/GPUWithoutVSync.png" /></p>
 <h3 id="_9">好处</h3>
-<ul>
+<ol>
 <li>
 <p>降低 <strong>GPU</strong> 的帧率，使其跟显示器的帧率一样</p>
 </li>
 <li>
 <p>对于一些老游戏， <strong>GPU</strong> 帧率会特别高，这很消耗性能，而开启垂直同步能同步 <strong>GPU</strong> 帧率到显示器的帧率，从而减少 <strong>GPU</strong> 的计算量。</p>
 </li>
-</ul>
+</ol>
 <h3 id="_10">坏处</h3>
 <p>可能会感受到 <strong>Input</strong> 输入，比如鼠标和键盘输入的延迟（俗称不跟手），如下图所示的区间输入键盘会延迟到下一帧。</p>
 <p><img alt="GPU 和显示器绘制帧率" src="../EventsSystemResources/GPUWithVSync.png" /></p>

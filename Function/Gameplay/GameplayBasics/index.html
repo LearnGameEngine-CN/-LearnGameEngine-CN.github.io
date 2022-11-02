@@ -227,12 +227,12 @@
                 
                 <li class="third-level"><a href="#event-despatching-immediate">Event Despatching : Immediate</a></li>
                 <li class="third-level"><a href="#event-despatching-queue">Event Despatching : Queue</a></li>
-        <li class="first-level "><a href="#_4">脚本系统</a></li>
-            <li class="second-level"><a href="#_5">引擎调用脚本</a></li>
+        <li class="first-level "><a href="#_2">脚本系统</a></li>
+            <li class="second-level"><a href="#_3">引擎调用脚本</a></li>
                 
-            <li class="second-level"><a href="#_6">脚本调用引擎</a></li>
+            <li class="second-level"><a href="#_4">脚本调用引擎</a></li>
                 
-        <li class="first-level "><a href="#_7">可视化脚本</a></li>
+        <li class="first-level "><a href="#_5">可视化脚本</a></li>
         <li class="first-level "><a href="#3c">3C</a></li>
     </ul>
 </div></div>
@@ -262,24 +262,30 @@
 <h3 id="event-despatching-queue">Event Despatching : Queue</h3>
 <p>将一帧的事件储存起来，在下一帧来临前完成处理。</p>
 <p><img alt="Event Despatching : Queue。" src="../GameplayBasicsSources/EventDespatchingQueue.png" /></p>
-<h4 id="_2">优化</h4>
-<p>可以通过环形队列控制消息占用的内存空间。</p>
+<ul>
+<li>可以通过环形队列控制消息占用的内存空间。</li>
+</ul>
 <p><img alt="RingBuffer。" src="../GameplayBasicsSources/RingBuffer.png" /></p>
-<p>对消息分类处理。</p>
+<ul>
+<li>对消息分类处理。</li>
+</ul>
 <p><img alt="Batching" src="../GameplayBasicsSources/Batching.png" /></p>
-<h4 id="_3">问题</h4>
-<p>不能保证消息执行顺序。</p>
+<ul>
+<li>但是不能保证消息执行顺序。</li>
+</ul>
 <p><img alt="Timeline" src="../GameplayBasicsSources/Timeline.png" /></p>
-<p>有一帧的延迟。</p>
+<ul>
+<li>并且有一帧的延迟。</li>
+</ul>
 <p><img alt="Timeline" src="../GameplayBasicsSources/One-frameDelays.png" /></p>
-<h1 id="_4">脚本系统</h1>
-<h2 id="_5">引擎调用脚本</h2>
+<h1 id="_2">脚本系统</h1>
+<h2 id="_3">引擎调用脚本</h2>
 <p>类似于 <strong>Unity</strong>，通过脚本扩充 <strong>Component</strong> 功能。</p>
 <p><img alt="Scripting System 1。" src="../GameplayBasicsSources/ScriptingSystem1.png" /></p>
-<h2 id="_6">脚本调用引擎</h2>
+<h2 id="_4">脚本调用引擎</h2>
 <p>将引擎视为 <strong>SDK</strong>，暴露接口供脚本调用。</p>
 <p><img alt="Scripting System 2。" src="../GameplayBasicsSources/ScriptingSystem2.jpg" /></p>
-<h1 id="_7">可视化脚本</h1>
+<h1 id="_5">可视化脚本</h1>
 <p>并不想提太多可视化脚本的事情，涉及到了反射宏（类似于 <strong>UE</strong> 将代码反射到蓝图中）。</p>
 <h1 id="3c">3C</h1>
 <ul>

@@ -237,6 +237,16 @@
                 
             <li class="second-level"><a href="#brdf">BRDF</a></li>
                 
+            <li class="second-level"><a href="#pbr-specular-glossiness">PBR Specular Glossiness</a></li>
+                
+            <li class="second-level"><a href="#pbr-metallic-roughness">PBR Metallic Roughness</a></li>
+                
+        <li class="first-level "><a href="#ibl">IBL</a></li>
+        <li class="first-level "><a href="#_9">经典阴影方法</a></li>
+            <li class="second-level"><a href="#cascade-shadow">Cascade Shadow</a></li>
+                
+            <li class="second-level"><a href="#pcf-pcss">PCF PCSS</a></li>
+                
     </ul>
 </div></div>
         <div class="col-md-9" role="main">
@@ -296,7 +306,7 @@
 <li>光照效果受采样点数量影响。</li>
 </ul>
 <h1 id="pbr"><a href="https://learnopengl-cn.github.io/07%20PBR/01%20Theory/">PBR</a></h1>
-<p>判断一种 <strong>PBR</strong> 光照模型是否是基于物理的，必须满足以下三个条件。</p>
+<p>判断一种 <strong>PBR</strong> 光照模型是否是基于物理的，必须满足以下三个条件：</p>
 <ol>
 <li>
 <p>基于微平面（<strong>Microfacet</strong>）的表面模型；</p>
@@ -372,6 +382,50 @@ float kD = 1.0 - ks;                        // 折射/漫反射 部分
 </li>
 </ul>
 <p>以上的每一种函数都是用来估算相应的物理参数的，而且你会发现用来实现相应物理机制的每种函数都有不止一种形式。它们有的非常真实，有的则性能高效。你可以按照自己的需求任意选择自己想要的函数的实现方法。</p>
+<h2 id="pbr-specular-glossiness">PBR Specular Glossiness</h2>
+<p><img alt="PBR Specular Glossiness。" src="../SpecialRenderingSources/PBRSpecularGlossiness.png" /></p>
+<p>唯一的缺点是其过于的灵活，假如 <strong>Specular</strong> 参数设置不好，<strong>Fresnel</strong> 项就会发生问题。</p>
+<h2 id="pbr-metallic-roughness">PBR Metallic Roughness</h2>
+<p><img alt="PBR Metallic Roughness。" src="../SpecialRenderingSources/PBRMetallicRoughness.jpg" /></p>
+<h1 id="ibl">IBL</h1>
+<p>基于图像的光照(Image based lighting, IBL)是一类光照技术的集合。其光源不是如前一节教程中描述的可分解的直接光源，而是将周围环境整体视为一个大光源。IBL 通常使用（取自现实世界或从3D场景生成的）环境立方体贴图 (Cubemap) ，我们可以将立方体贴图的每个像素视为光源，在渲染方程中直接使用它。这种方式可以有效地捕捉环境的全局光照和氛围，使物体更好地融入其环境。</p>
+<p>由于基于图像的光照算法会捕捉部分甚至全部的环境光照，通常认为它是一种更精确的环境光照输入格式，甚至也可以说是一种全局光照的粗略近似。基于此特性，IBL 对 PBR 很有意义，因为当我们将环境光纳入计算之后，物体在物理方面看起来会更加准确。</p>
+<p>要开始将 IBL 引入我们的 PBR 系统，让我们再次快速看一下反射方程：</p>
+<p>$$L_{o}(p,w_{o})=\int\limits_{\Omega }^{}(k_{d}\frac{c}{\pi}+k_{s}\frac{DFG}{4(w_{o}\cdot n)(w_{i}\cdot n)})L_{i}(p,w_{i})n\cdot w_{i}dw_{i}$$</p>
+<p>如前所述，我们的主要目标是计算半球 Ω 上所有入射光方向 wi 的积分。解决上一节教程中的积分非常简单，因为我们事先已经知道了对积分有贡献的、若干精确的光线方向 wi 。然而这次，来自周围环境的每个方向 wi 的入射光都可能具有一些辐射度，使得解决积分变得不那么简单。这为解决积分提出了两个要求：</p>
+<ul>
+<li>
+<p>给定任何方向向量 wi ，我们需要一些方法来获取这个方向上场景的辐射度。</p>
+</li>
+<li>
+<p>解决积分需要快速且实时。</p>
+</li>
+</ul>
+<p>现在看，第一个要求相对容易些。我们已经有了一些思路：表示环境或场景辐照度的一种方式是（预处理过的）环境立方体贴图，给定这样的立方体贴图，我们可以将立方体贴图的每个纹素视为一个光源。使用一个方向向量 wi 对此立方体贴图进行采样，我们就可以获取该方向上的场景辐照度。</p>
+<p>如此，给定方向向量 wi ，获取此方向上场景辐射度的方法就简化为：</p>
+<pre><code>vec3 radiance =  texture(_cubemapEnvironment, w_i).rgb;
+</code></pre>
+<p>为了以更有效的方式解决积分，我们需要对其大部分结果进行预处理——或称预计算。为此，我们必须深入研究反射方程：</p>
+<p>$$L_{o}(p,w_{o})=\int\limits_{\Omega }^{}(k_{d}\frac{c}{\pi}+k_{s}\frac{DFG}{4(w_{o}\cdot n)(w_{i}\cdot n)})L_{i}(p,w_{i})n\cdot w_{i}dw_{i}$$</p>
+<p>仔细研究反射方程，我们发现 BRDF 的漫反射 kd 和镜面 ks 项是相互独立的，我们可以将积分分成两部分：</p>
+<p>$$L_{o}(p,w_{o})=\int\limits_{\Omega }^{}k_{d}\frac{c}{\pi}L_{i}(p,w_{i})n\cdot w_{i}dw_{i}+\int\limits_{\Omega }^{}k_{s}\frac{DFG}{4(w_{o}\cdot n)(w_{i}\cdot n)}L_{i}(p,w_{i})n\cdot w_{i}dw_{i}$$</p>
+<p>通过将积分分成两部分，我们可以分开研究漫反射和镜面反射部分，本教程的重点是漫反射积分部分。</p>
+<p>仔细观察漫反射积分，我们发现漫反射兰伯特项是一个常数项（颜色 c 、折射率 kd 和 π 在整个积分是常数），不依赖于任何积分变量。基于此，我们可以将常数项移出漫反射积分：</p>
+<p>$$L_{o}(p,w_{o})=k_{d}\frac{c}{\pi}\int\limits_{\Omega }^{}L_{i}(p,w_{i})n\cdot w_{i}dw_{i}$$</p>
+<p>这给了我们一个只依赖于 wi 的积分（假设 p 位于环境贴图的中心）。有了这些知识，我们就可以计算或预计算一个新的立方体贴图，它在每个采样方向——也就是纹素——中存储漫反射积分的结果，这些结果是通过卷积计算出来的。</p>
+<p>卷积的特性是，对数据集中的一个条目做一些计算时，要考虑到数据集中的所有其他条目。这里的数据集就是场景的辐射度或环境贴图。因此，要对立方体贴图中的每个采样方向做计算，我们都会考虑半球 Ω 上的所有其他采样方向。</p>
+<p>为了对环境贴图进行卷积，我们通过对半球 Ω 上的大量方向进行离散采样并对其辐射度取平均值，来计算每个输出采样方向 wo 的积分。用来采样方向 wi 的半球，要面向卷积的输出采样方向 wo 。</p>
+<p><img alt="IBL Hemisphere Sample。" src="../SpecialRenderingSources/IBLHemisphereSample.png" /></p>
+<p>这个预计算的立方体贴图，在每个采样方向 wo 上存储其积分结果，可以理解为场景中所有能够击中面向 wo 的表面的间接漫反射光的预计算总和。这样的立方体贴图被称为辐照度图，因为经过卷积计算的立方体贴图能让我们从任何方向有效地直接采样场景（预计算好的）辐照度。</p>
+<pre><code>辐射方程也依赖了位置 p ，不过这里我们假设它位于辐照度图的中心。这就意味着所有漫反射间接光只能来自同一个环境贴图，这样可能会破坏现实感（特别是在室内）。渲染引擎通过在场景中放置多个反射探针来解决此问题，每个反射探针单独预计算其周围环境的辐照度图。这样，位置 p 处的辐照度（以及辐射度）是取离其最近的反射探针之间的辐照度（辐射度）内插值。目前，我们假设总是从中心采样环境贴图，把反射探针的讨论留给后面的教程。
+</code></pre>
+<p>下面是一个环境立方体贴图及其生成的辐照度图的示例（由 Wave 引擎提供），每个方向 wo 的场景辐射度取平均值。</p>
+<p><img alt="IBL Irradiance。" src="../SpecialRenderingSources/IBLIrradiance.png" /></p>
+<p>由于立方体贴图每个纹素中存储了（ wo 方向的）卷积结果，辐照度图看起来有点像环境的平均颜色或光照图。使用任何一个向量对立方体贴图进行采样，就可以获取该方向上的场景辐照度。</p>
+<h1 id="_9">经典阴影方法</h1>
+<h2 id="cascade-shadow">Cascade Shadow</h2>
+<p><img alt="PBR Metallic Roughness。" src="../SpecialRenderingSources/CascadeShadow.png" /></p>
+<h2 id="pcf-pcss">PCF PCSS</h2>
 <script type="text/javascript" id="MathJax-script" async
   src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.0.0/es5/tex-mml-chtml.js">
 </script>

@@ -265,7 +265,7 @@ while (!quit)
 <p>这种代码一般是启用 <strong>VSync</strong> 时调用的，因为此时已经知道调用渲染 <strong>Loop</strong> 的频率，比如这里显示器是 <strong>60</strong> 的帧率，就可以直接这么写。</p>
 <p>但这样写也不太好，因为它存在一个问题：如果 <strong>CPU</strong> 渲染的频率跟不上显示器的频率，那么这里的函数一秒就不能跑到 <strong>60</strong> 次，游戏里的逻辑就会变慢。而且如果没开 <strong>VSync</strong>，也会有问题。</p>
 <h3 id="variable-delta-time">Variable delta time</h3>
-<p>如上。</p>
+<p>具体如上。</p>
 <p>不过这种方法，如果机器很差的话，帧与帧之间的 <strong>delta time</strong> 不仅可能会很大，而且每帧的 <strong>delta time</strong> 都是不同的。</p>
 <p>而对于物理模拟的系统来说，需要的是稳定不变，且较小的 <strong>delta time</strong>，只有这样，才能平滑的计算物理之间的变化。</p>
 <h3 id="semi-fixed-timestep">Semi-fixed timestep</h3>
