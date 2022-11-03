@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+
+    
+    <title>Events System - 游戏引擎学习</title>
+    
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
+    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="../../css/base.min.css" rel="stylesheet">
+    <link href="../../css/cinder.min.css" rel="stylesheet">
+
+    
+        
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
+        
+    
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+            <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+        <![endif]-->
+
+    
+
+     
+</head>
+
+<body>
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+
+            <!-- Main title -->
+
+            
+              <a class="navbar-brand" href="../..">游戏引擎学习</a>
+            
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                
+                
+                    <li >
+                        <a href="../..">Home</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../../Introduce/">Introduce</a>
+                    </li>
+                
+                
+                
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Core <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li class="active">
+    <a href="./">Events System</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../LayersSystem/">Layers System</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../InputPolling/">Input Polling</a>
+</li>
+
+                        
+                            
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="">Rendering</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../Rendering/BasicsOfGameRendering/">Basics</a>
+</li>
+
+        
+            
+<li >
+    <a href="../Rendering/SpecialRendering/">Lighting</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                            
+<li >
+    <a href="../Timestep/">Timestep</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../Timer/">Timer</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../EC/">EC</a>
+</li>
+
+                        
+                            
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="">Physics System</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../PhysicsSystem/BasicConcepts/">Basic Concepts</a>
+</li>
+
+        
+            
+<li >
+    <a href="../PhysicsSystem/Applications/">Applications</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Function <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../../Function/ImGuiLayer/">ImGui Layer</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../Function/Scene/">Scene</a>
+</li>
+
+                        
+                            
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="">Gameplay</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../../Function/Gameplay/GameplayBasics/">Basics</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <i class="fas fa-search"></i> Search
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="prev" href="../../Introduce/">
+                            <i class="fas fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="next" href="../LayersSystem/">
+                            Next <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+    <div class="container">
+        
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="first-level active"><a href="#_1">结构</a></li>
+            <li class="second-level"><a href="#_2">优点</a></li>
+                
+            <li class="second-level"><a href="#event">Event</a></li>
+                
+                <li class="third-level"><a href="#event-definition">Event Definition</a></li>
+                <li class="third-level"><a href="#event-despatching">Event Despatching</a></li>
+            <li class="second-level"><a href="#window">Window</a></li>
+                
+                <li class="third-level"><a href="#window_1">Window</a></li>
+                <li class="third-level"><a href="#callback-registration">Callback Registration</a></li>
+            <li class="second-level"><a href="#application">Application</a></li>
+                
+        <li class="first-level "><a href="#_3">补充知识</a></li>
+            <li class="second-level"><a href="#define">#define</a></li>
+                
+            <li class="second-level"><a href="#stdfunction">std::function</a></li>
+                
+            <li class="second-level"><a href="#stdbind">std::bind</a></li>
+                
+                <li class="third-level"><a href="#_4">概述</a></li>
+                <li class="third-level"><a href="#_5">函数原型</a></li>
+                <li class="third-level"><a href="#_6">使用</a></li>
+            <li class="second-level"><a href="#callback">CallBack</a></li>
+                
+                <li class="third-level"><a href="#_7">实现</a></li>
+                <li class="third-level"><a href="#_8">优点</a></li>
+            <li class="second-level"><a href="#virtual">virtual</a></li>
+                
+            <li class="second-level"><a href="#stdunique_ptr-stdshared_ptr">std::unique_ptr 和 std::shared_ptr</a></li>
+                
+                <li class="third-level"><a href="#stdunique_ptr">std::unique_ptr</a></li>
+                <li class="third-level"><a href="#stdshared_ptr">std::shared_ptr</a></li>
+            <li class="second-level"><a href="#vsync">VSync</a></li>
+                
+                <li class="third-level"><a href="#_9">好处</a></li>
+                <li class="third-level"><a href="#_10">坏处</a></li>
+        <li class="first-level "><a href="#_11">资料来源</a></li>
+    </ul>
+</div></div>
+        <div class="col-md-9" role="main">
+
+<h1 id="_1">结构</h1>
+<p>实现事件机制需要以下三个功能模块。</p>
+<p><img alt="事件机制" src="../EventsSystemResources/EventMechanism.jpg" /></p>
+<p><img alt="事件系统类图" src="../EventsSystemResources/Structure.png" /></p>
+<h2 id="_2">优点</h2>
+<ol>
+<li>
+<p><strong>Application</strong> 储存 <strong>Window</strong> 的指针，<strong>Window</strong> 不必知道 <strong>Application</strong> 的存在。</p>
+</li>
+<li>
+<p>为 <strong>Window</strong> 创建回调函数，让 <strong>Window</strong> 自动返回消息告知 <strong>Application</strong>，而不是通过 <strong>Application</strong> 询问 <strong>Window</strong>。</p>
+</li>
+<li>
+<p>将 <strong>Window</strong> 抽象，方便在不同的平台实现。</p>
+</li>
+</ol>
+<h2 id="event">Event</h2>
+<h3 id="event-definition">Event Definition</h3>
+<p><img alt="Event Definition" src="../EventsSystemResources/EventDefinition.png" /></p>
+<p><a href="https://github.com/TheCherno/Hazel/commit/34df41651fe88041540f20df845a70642359dc17#diff-df6262dc4d62d318816e6edafbca29cd0aeb7e5a2451da79184a75d46bf3d420"><strong>EventType</strong> 和 <strong>EventCategory</strong></a> ：对各种事件进行分类。</p>
+<pre><code class="language-c++">enum class EventType
+{
+    None = 0,
+    WindowClose, WindowResize, WindowFocus, WindowLostFocus, WindowMoved,
+    AppTick, AppUpdate, AppRender,
+    KeyPressed, KeyReleased,
+    MouseButtonPressed, MouseButtonReleased, MouseMoved, MouseScrolled
+};
+
+enum EventCategory
+{
+    None = 0,
+    EventCategoryApplication    = BIT(0),
+    EventCategoryInput          = BIT(1),
+    EventCategoryKeyboard       = BIT(2),
+    EventCategoryMouse          = BIT(3),
+    EventCategoryMouseButton    = BIT(4)
+};
+</code></pre>
+<p><a href="https://github.com/TheCherno/Hazel/commit/34df41651fe88041540f20df845a70642359dc17#diff-df6262dc4d62d318816e6edafbca29cd0aeb7e5a2451da79184a75d46bf3d420"><strong>Event</strong></a> ：作为基类，引入事件调度，设置布尔变量储存该事件是否已被处理。</p>
+<pre><code class="language-c++">class HAZEL_API Event
+{
+    friend class EventDispatcher;
+public:
+    virtual EventType GetEventType() const = 0;
+    virtual const char* GetName() const = 0;
+    virtual int GetCategoryFlags() const = 0;
+    virtual std::string ToString() const { return GetName(); }
+
+    inline bool IsInCategory(EventCategory category)
+    {
+        return GetCategoryFlags() &amp; category;
+    }
+protected:
+    bool m_Handled = false;
+};
+</code></pre>
+<p>其中将 <strong>m_Handled</strong> 设为 <strong>protected</strong> 型，是为了保证子类可以直接设置和调用该属性。</p>
+<p>通过对 <strong>Event</strong> 的重载和异化，即可实现不同的事件。</p>
+<h3 id="event-despatching">Event Despatching</h3>
+<p><img alt="Event Despatching" src="../EventsSystemResources/EventDespatching.png" /></p>
+<p><a href="https://github.com/TheCherno/Hazel/commit/34df41651fe88041540f20df845a70642359dc17#diff-df6262dc4d62d318816e6edafbca29cd0aeb7e5a2451da79184a75d46bf3d420"><strong>EventDispatcher</strong></a> ：用来设置事件是否已被处理。</p>
+<pre><code class="language-c++">class EventDispatcher
+{
+    template&lt;typename T&gt;
+    using EventFn = std::function&lt;bool(T&amp;)&gt;;
+public:
+    EventDispatcher(Event&amp; event)
+        : m_Event(event)
+    {
+    }
+
+    template&lt;typename T&gt;
+    bool Dispatch(EventFn&lt;T&gt; func)
+    {
+        if (m_Event.GetEventType() == T::GetStaticType())
+        {
+            m_Event.m_Handled = func(*(T*)&amp;m_Event);
+            return true;
+        }
+        return false;
+    }
+private:
+    Event&amp; m_Event;
+};
+</code></pre>
+<h4 id="event-despatching-immediate">Event Despatching : Immediate</h4>
+<p>直接派发消息会导致消息等待，同时会人为的造成消息间的关联，导致并发性降低。</p>
+<p><img alt="Event Despatching : Immediate" src="../EventsSystemResources/EventDespatchingImmediate.png" /></p>
+<h4 id="event-despatching-queue">Event Despatching : Queue</h4>
+<p>将一帧的事件储存起来，在下一帧来临前完成处理。</p>
+<p><img alt="Event Despatching : Queue" src="../EventsSystemResources/EventDespatchingQueue.png" /></p>
+<ul>
+<li>可以通过环形队列控制消息占用的内存空间。</li>
+</ul>
+<p><img alt="RingBuffer" src="../EventsSystemResources/RingBuffer.png" /></p>
+<ul>
+<li>对消息分类处理。</li>
+</ul>
+<p><img alt="Batching" src="../EventsSystemResources/Batching.png" /></p>
+<ul>
+<li>但是不能保证消息执行顺序。</li>
+</ul>
+<p><img alt="Timeline" src="../EventsSystemResources/Timeline.png" /></p>
+<ul>
+<li>并且有一帧的延迟。</li>
+</ul>
+<p><img alt="One-frame Delays" src="../EventsSystemResources/One-frameDelays.png" /></p>
+<h2 id="window">Window</h2>
+<h3 id="window_1">Window</h3>
+<p><a href="https://github.com/TheCherno/Hazel/commit/6815f07cd23eb5cd55cfe6fccaec5aefdc8169e8"><strong>WindowProps</strong></a> ：储存 <strong>Window</strong> 的基础属性。</p>
+<pre><code class="language-c++">struct WindowProps
+{
+    std::string Title;
+    unsigned int Width;
+    unsigned int Height;
+
+    WindowProps(const std::string&amp; title = &quot;Hazel Engine&quot;,
+                unsigned int width = 1280,
+                unsigned int height = 720)
+        : Title(title), Width(width), Height(height)
+    {
+    }
+};
+</code></pre>
+<p><a href="https://github.com/TheCherno/Hazel/commit/6815f07cd23eb5cd55cfe6fccaec5aefdc8169e8"><strong>Window</strong></a> ：作为基类，预设了窗口函数的模板以及规范了窗口创建函数。</p>
+<pre><code class="language-c++">class HAZEL_API Window
+{
+public:
+    using EventCallbackFn = std::function&lt;void(Event&amp;)&gt;;
+
+    virtual ~Window() {}
+
+    virtual void OnUpdate() = 0;
+
+    virtual unsigned int GetWidth() const = 0;
+    virtual unsigned int GetHeight() const = 0;
+
+    // Window attributes
+    virtual void SetEventCallback(const EventCallbackFn&amp; callback) = 0;
+    virtual void SetVSync(bool enabled) = 0;
+    virtual bool IsVSync() const = 0;
+
+    static Window* Create(const WindowProps&amp; props = WindowProps());
+};
+</code></pre>
+<p><a href="https://github.com/TheCherno/Hazel/commit/6815f07cd23eb5cd55cfe6fccaec5aefdc8169e8"><strong>WindowsWindow</strong></a> ：重写并实现 <strong>Window</strong> 类，增添了 <strong>WindowData</strong> 以储存从创建函数传来的数据和当前的回调函数以及对 <strong>VSync</strong> 的设置。</p>
+<pre><code class="language-c++">class WindowsWindow : public Window
+{
+public:
+    WindowsWindow(const WindowProps&amp; props);
+    virtual ~WindowsWindow();
+
+    void OnUpdate() override;
+
+    inline unsigned int GetWidth() const override { return m_Data.Width; }
+    inline unsigned int GetHeight() const override { return m_Data.Height; }
+
+    // Window attributes
+    inline void SetEventCallback(const EventCallbackFn&amp; callback) override { m_Data.EventCallback = callback; }
+    void SetVSync(bool enabled) override;
+    bool IsVSync() const override;
+private:
+    virtual void Init(const WindowProps&amp; props);
+    virtual void Shutdown();
+private:
+    GLFWwindow* m_Window;
+
+    struct WindowData
+    {
+        std::string Title;
+        unsigned int Width, Height;
+        bool VSync;
+
+        EventCallbackFn EventCallback;
+    };
+
+    WindowData m_Data;
+};
+</code></pre>
+<h3 id="callback-registration">Callback Registration</h3>
+<p>事件激活回调函数。</p>
+<p><img alt="Callback Registration" src="../EventsSystemResources/CallbackRegistration.png" /></p>
+<p>其中 <a href="https://github.com/TheCherno/Hazel/commit/30516ad7109b016213eb732f14e1c7061c1db603"><strong>GLFW</strong> 下的回调函数实现</a>大致如下。</p>
+<pre><code class="language-c++">// Set GLFW callbacks
+glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* window, int width, int height)
+{
+    WindowData&amp; data = *(WindowData*)glfwGetWindowUserPointer(window);
+    data.Width = width;
+    data.Height = height;
+
+    WindowResizeEvent event(width, height);
+    data.EventCallback(event);
+});
+
+glfwSetWindowCloseCallback(m_Window, [](GLFWwindow* window)
+{
+    WindowData&amp; data = *(WindowData*)glfwGetWindowUserPointer(window);
+    WindowCloseEvent event;
+    data.EventCallback(event);
+});
+
+glfwSetKeyCallback(m_Window, [](GLFWwindow* window, int key, int scancode, int action, int mods)
+{
+    WindowData&amp; data = *(WindowData*)glfwGetWindowUserPointer(window);
+
+    switch (action)
+    {
+        case GLFW_PRESS:
+        {
+            KeyPressedEvent event(key, 0);
+            data.EventCallback(event);
+            break;
+        }
+        case GLFW_RELEASE:
+        {
+            KeyReleasedEvent event(key);
+            data.EventCallback(event);
+            break;
+        }
+        case GLFW_REPEAT:
+        {
+            KeyPressedEvent event(key, 1);
+            data.EventCallback(event);
+            break;
+        }
+    }
+});
+
+glfwSetMouseButtonCallback(m_Window, [](GLFWwindow* window, int button, int action, int mods)
+{
+    WindowData&amp; data = *(WindowData*)glfwGetWindowUserPointer(window);
+
+    switch (action)
+    {
+        case GLFW_PRESS:
+        {
+            MouseButtonPressedEvent event(button);
+            data.EventCallback(event);
+            break;
+        }
+        case GLFW_RELEASE:
+        {
+            MouseButtonReleasedEvent event(button);
+            data.EventCallback(event);
+            break;
+        }
+    }
+});
+
+glfwSetScrollCallback(m_Window, [](GLFWwindow* window, double xOffset, double yOffset)
+{
+    WindowData&amp; data = *(WindowData*)glfwGetWindowUserPointer(window);
+
+    MouseScrolledEvent event((float)xOffset, (float)yOffset);
+    data.EventCallback(event);
+});
+
+glfwSetCursorPosCallback(m_Window, [](GLFWwindow* window, double xPos, double yPos)
+{
+    WindowData&amp; data = *(WindowData*)glfwGetWindowUserPointer(window);
+
+    MouseMovedEvent event((float)xPos, (float)yPos);
+    data.EventCallback(event);
+});
+</code></pre>
+<p>为了防止拥有回调函数的对象被删除导致事件激活了野指针，出现了对象强引用和对象弱引用。</p>
+<h4 id="object-strong-reference">Object Strong Reference</h4>
+<p>如果对象 <strong>A</strong> 的生命周期内可以激活对象 <strong>B</strong> 的回调函数，那么 <strong>B</strong> 一定要后于 <strong>A</strong> 被销毁（内存锁定）。</p>
+<p><img alt="Object Strong Reference" src="../EventsSystemResources/ObjectStrongReference.png" /></p>
+<h4 id="object-weak-reference">Object Weak Reference</h4>
+<p>在激活前判断对象是否已被销毁。</p>
+<p><img alt="Object Weak Reference" src="../EventsSystemResources/ObjectWeakReference.png" /></p>
+<h2 id="application">Application</h2>
+<p><a href="https://github.com/TheCherno/Hazel/commit/30516ad7109b016213eb732f14e1c7061c1db603#diff-c8196d399526acf5d1a312dbb10190bf84294116d47be2c42a7169655d2732dc"><strong>Application</strong></a> ：添加了指向 <strong>Window</strong> 的指针以及对 <strong>Event</strong> 的处理函数。</p>
+<pre><code class="language-c++">class HAZEL_API Application
+{
+public:
+    Application();
+    virtual ~Application();
+
+    void Run();
+
+    void OnEvent(Event&amp; e);
+private:
+    bool OnWindowClose(WindowCloseEvent&amp; e);
+
+    std::unique_ptr&lt;Window&gt; m_Window;
+    bool m_Running = true;
+};
+</code></pre>
+<h1 id="_3">补充知识</h1>
+<h2 id="define">#define</h2>
+<p>游戏引擎中为了简化代码，常常会创建许多宏定义，如：</p>
+<pre><code class="language-c++">#define EVENT_CLASS_TYPE(type) \
+static EventType GetStaticType() { return EventType::##type; }\
+const EventType GetEventType() const override { return GetStaticType(); }\
+const char* GetName() const override { return #type; }
+</code></pre>
+<p>其中 <strong>#</strong> 是将值转换成字符串，<strong>##</strong> 是直接进行字符的拼接。</p>
+<p>以下代码创建了一个 <strong>Assert</strong> 类型的宏来判断数据是否为空。</p>
+<pre><code class="language-c++">#ifdef HZ_ENABLE_ASSERTS
+    #define HAZEL_ASSERT(x, ...) if(!x) {LOG_ERROR(&quot;Assertion Failed At: {0}&quot;, __VA_ARGS__);\
+    __debugbreak();}
+    #define HAZEL_CORE_ASSERT(x, ...) if(!x) {CORE_LOG_ERROR(&quot;Assertion Failed At: {0}&quot;, __VA_ARGS__);\
+    __debugbreak();}
+#else
+    #define HAZEL_ASSERT(x, ...) // 非Debug状态下这行代码毫无作用
+    #define HAZEL_CORE_ASSERT(x, ...)
+#endif
+</code></pre>
+<p>其中 <strong>Variadic Arguments</strong> 表示可变的参数，<strong>__debugbreak</strong> 可以让程序在运行到此处时自动断点。</p>
+<h2 id="stdfunction">std::function</h2>
+<pre><code>Class template std::function is a general-purpose polymorphic function wrapper. Instances of std::function can store, copy, and invoke any Callable target – functions, lambda expressions, bind expressions, or other function objects, as well as pointers to member functions and pointers to data members.
+
+The stored callable object is called the target of std::function. If a std::function contains no target, it is called empty. Invoking the target of an empty std::function results in std::bad_function_call exception being thrown.
+
+std::function satisfies the requirements of CopyConstructible and CopyAssignable.
+</code></pre>
+<p><strong>std::function</strong> 是一个可调用对象包装器，是一个类模板，可以容纳除了类成员函数指针之外的所有可调用对象，它可以用统一的方式处理函数、函数对象和函数指针，并允许保存和延迟它们的执行。</p>
+<p><strong>std::function</strong> 可以取代函数指针的作用，因为它可以延迟函数的执行，特别适合作为回调函数使用。它比普通函数指针更加的灵活和便利。</p>
+<p>因此，<strong>std::function</strong> 的作用可以归结成：</p>
+<ul>
+<li>
+<p><strong>std::function</strong> 对 <strong>C++</strong> 中各种可调用实体（普通函数、<strong>Lambda</strong> 表达式、函数指针以及其它函数对象等）的封装，形成一个新的可调用的 <strong>std::function</strong> 对象以简化调用；</p>
+</li>
+<li>
+<p><strong>std::function</strong> 对象是对 <strong>C++</strong> 中现有的可调用实体的一种类型安全的包裹（如函数指针这类可调用实体是类型不安全的）。</p>
+</li>
+</ul>
+<p>调用时只需将函数转换成特定的函数型即可使用。</p>
+<pre><code class="language-c++">std::function &lt;void()&gt; a = static_cast&lt;fun_ptr_a&gt;(print);
+std::function &lt;void(int)&gt; b = static_cast&lt;fun_ptr_b&gt;(print);
+</code></pre>
+<h2 id="stdbind">std::bind</h2>
+<h3 id="_4">概述</h3>
+<p><strong>std::bind</strong> 可以看作一个通用的函数适配器，所谓适配器，即使某种事物的行为类似于另外一种事物的一种机制，如容器适配器：<strong>stack</strong>（栈）、<strong>queue</strong>（队列）、<strong>priority_queue</strong>（优先级队列）。<strong>bind</strong> 函数接受一个可调用对象，生成一个新的可调用对象来适配原对象。</p>
+<h3 id="_5">函数原型</h3>
+<pre><code class="language-c++">template &lt;class Fn, class... Args&gt;
+  /* unspecified */ bind (Fn&amp;&amp; fn, Args&amp;&amp;... args);
+</code></pre>
+<p><strong>bind</strong> 函数接受一个逗号分割的参数列表 <strong>args</strong>，对应给定函数对象 <strong>fn</strong> 的参数，返回一个新的函数对象。</p>
+<p>参数列表 <strong>args</strong> 中：</p>
+<ul>
+<li>
+<p>如果绑定到一个值，则调用返回的函数对象将始终使用该值作为参数；</p>
+</li>
+<li>
+<p>如果是一个形如 <strong>_n</strong> 的占位符，则调用返回的函数对象会转发传递给调用的参数（该参数的顺序号由占位符指定）。</p>
+</li>
+</ul>
+<h3 id="_6">使用</h3>
+<p><strong>std::bind</strong> 一般与 <strong>std::function</strong> 一起使用，<strong>std::bind</strong> 的返回值可以直接用 <strong>std::function</strong> 储存。</p>
+<h2 id="callback">CallBack</h2>
+<h3 id="_7">实现</h3>
+<ol>
+<li>
+<p>定义一个回调函数；</p>
+</li>
+<li>
+<p>提供函数实现的一方在初始化的时候，将回调函数的函数指针注册给调用者；</p>
+</li>
+<li>
+<p>当特定的事件或条件发生的时候，调用者使用函数指针调用回调函数对事件进行处理。</p>
+</li>
+</ol>
+<h3 id="_8">优点</h3>
+<ol>
+<li>使用此函数可以把调用者与被调用者分开，所以调用者不关心谁是被调用者，只需知道存在一个具有特定原型和限制条件的被调用函数。<pre><code>简而言之，回调函数就是允许用户把需要调用的函数的指针作为参数传递给一个函数，以便该函数在处理相似事件的时候可以灵活的使用不同的方法。
+</code></pre>
+</li>
+</ol>
+<h2 id="virtual">virtual</h2>
+<p><img alt="virtual 功能实现" src="../EventsSystemResources/Virtual.jpg" /></p>
+<ol>
+<li>
+<p>在没有 <strong>virtual</strong> 的情况下，以基类指针调用时编译器并不知道比基类更多的东西，通常调用函数的基类版本；</p>
+</li>
+<li>
+<p>当用 <strong>virtual</strong> 声明函数时，每当创建一个包含虚函数的类或者从包含虚函数的类派生的类时，编译器就创建一个 <strong>VTABLE</strong>；</p>
+</li>
+<li>
+<p>如果派生类没有对基类的 <strong>virtual</strong> 函数进行重新定义，<strong>VTABLE</strong> 中就填充基类的虚函数的地址；</p>
+</li>
+<li>
+<p>编译器会在类中放置一个 <strong>VPTR</strong>，<strong>VPTR</strong> 指向相应的 <strong>VTABLE</strong>，<strong>VPTR</strong> 的初始化在构造函数中完成。</p>
+</li>
+</ol>
+<p>我的理解是，父类的所有虚函数会被汇总成一张表，子类继承时会开辟一块内存放置该表和一个指向该表的指针，如果重载了就覆盖表中相应的函数。</p>
+<p>值得注意的是之所以规定父类的析构函数必须为虚函数，是为了防止 <strong>delete</strong> 子类时没有 <strong>delete</strong> 父类，从而造成内存溢出。</p>
+<h2 id="stdunique_ptr-stdshared_ptr">std::unique_ptr 和 std::shared_ptr</h2>
+<h3 id="stdunique_ptr">std::unique_ptr</h3>
+<p><strong>std::unique_ptr</strong> 只允许一个指针指向同一个对象，所以指针被销毁时会自动销毁对象，可以通过 <strong>std::move</strong> 更改所有权。</p>
+<p>推荐使用 <strong>make_unique</strong> 创建以减少代码重复。</p>
+<h3 id="stdshared_ptr">std::shared_ptr</h3>
+<p><strong>std::shared_ptr</strong> 允许多个指针指向同一个对象，内部有计数器记录指针数，也可以通过 <strong>std::move</strong> 更改所有权。</p>
+<p>推荐使用 <strong>make_shared</strong> 创建以减少代码重复。</p>
+<h2 id="vsync">VSync</h2>
+<p>垂直同步旨在解决画面的 <strong>FPS</strong> 与显示器的帧率不同步的问题，当二者存在差距时，可能会出现 <strong>Screen Tearing</strong>（屏幕撕扯）的情况，如下图所示。</p>
+<p><img alt="屏幕撕扯" src="../EventsSystemResources/ScreenTearing.png" /></p>
+<p>下面的图示展示了 <strong>GPU</strong> 和显示器绘制帧率不同步导致屏幕撕扯的情况。</p>
+<p><img alt="GPU 和显示器绘制帧率" src="../EventsSystemResources/GPUWithoutVSync.png" /></p>
+<h3 id="_9">好处</h3>
+<ol>
+<li>
+<p>降低 <strong>GPU</strong> 的帧率，使其跟显示器的帧率一样</p>
+</li>
+<li>
+<p>对于一些老游戏， <strong>GPU</strong> 帧率会特别高，这很消耗性能，而开启垂直同步能同步 <strong>GPU</strong> 帧率到显示器的帧率，从而减少 <strong>GPU</strong> 的计算量。</p>
+</li>
+</ol>
+<h3 id="_10">坏处</h3>
+<p>可能会感受到 <strong>Input</strong> 输入，比如鼠标和键盘输入的延迟（俗称不跟手），如下图所示的区间输入键盘会延迟到下一帧。</p>
+<p><img alt="GPU 和显示器绘制帧率" src="../EventsSystemResources/GPUWithVSync.png" /></p>
+<h1 id="_11">资料来源</h1>
+<ol>
+<li>
+<p><a href="https://blog.csdn.net/alexhu2010q/article/details/106942099"><strong>#define</strong>。</a></p>
+</li>
+<li>
+<p><a href="https://blog.csdn.net/qq_38410730/article/details/103637778"><strong>std::function</strong>。</a></p>
+</li>
+<li>
+<p><a href="https://www.jianshu.com/p/82407fb43475"><strong>std::bind</strong>。</a></p>
+</li>
+<li>
+<p><a href="https://baike.baidu.com/item/CALLBACK/813549"><strong>CallBack</strong>。</a></p>
+</li>
+<li>
+<p><a href="https://blog.csdn.net/ninghu800/article/details/17039099"><strong>virtual</strong>。</a></p>
+</li>
+<li>
+<p><a href="https://www.bilibili.com/video/BV1r841147Hv/?spm_id_from=333.880.my_history.page.click"><strong>std::make_unique unique_ptr make_shared</strong>。</a></p>
+</li>
+<li>
+<p><a href="https://blog.csdn.net/alexhu2010q/article/details/107132670?spm=1001.2101.3001.6650.2&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-2-107132670-blog-106942099.pc_relevant_aa&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-2-107132670-blog-106942099.pc_relevant_aa&amp;utm_relevant_index=5"><strong>VSync</strong>。</a></p>
+</li>
+</ol></div>
+        
+        
+    </div>
+
+    
+      <footer class="col-md-12 text-center">
+          
+          
+            <hr>
+            <p>
+            <small><a href='https://github.com/zong4'>Documentation written by Zong.</small><br>
+            
+            <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small>
+            </p>
+          
+
+          
+          
+      </footer>
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../../js/bootstrap-3.0.3.min.js"></script>
+
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
+        
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    <script>var base_url = "../.."</script>
+    
+    <script src="../../js/base.js"></script>
+    <script src="../../search/main.js"></script>
+
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+    </body>
+
+</html>

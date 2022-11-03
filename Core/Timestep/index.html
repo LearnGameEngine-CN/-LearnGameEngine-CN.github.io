@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+
+    
+    <title>Timestep - 游戏引擎学习</title>
+    
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
+    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="../../css/base.min.css" rel="stylesheet">
+    <link href="../../css/cinder.min.css" rel="stylesheet">
+
+    
+        
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
+        
+    
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+            <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+        <![endif]-->
+
+    
+
+     
+</head>
+
+<body>
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+
+            <!-- Main title -->
+
+            
+              <a class="navbar-brand" href="../..">游戏引擎学习</a>
+            
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                
+                
+                    <li >
+                        <a href="../..">Home</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../../Introduce/">Introduce</a>
+                    </li>
+                
+                
+                
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Core <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../EventsSystem/">Events System</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../LayersSystem/">Layers System</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../InputPolling/">Input Polling</a>
+</li>
+
+                        
+                            
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="">Rendering</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../Rendering/BasicsOfGameRendering/">Basics</a>
+</li>
+
+        
+            
+<li >
+    <a href="../Rendering/SpecialRendering/">Lighting</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                            
+<li class="active">
+    <a href="./">Timestep</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../Timer/">Timer</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../EC/">EC</a>
+</li>
+
+                        
+                            
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="">Physics System</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../PhysicsSystem/BasicConcepts/">Basic Concepts</a>
+</li>
+
+        
+            
+<li >
+    <a href="../PhysicsSystem/Applications/">Applications</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Function <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../../Function/ImGuiLayer/">ImGui Layer</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../Function/Scene/">Scene</a>
+</li>
+
+                        
+                            
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="">Gameplay</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../../Function/Gameplay/GameplayBasics/">Basics</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <i class="fas fa-search"></i> Search
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="prev" href="../Rendering/SpecialRendering/">
+                            <i class="fas fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="next" href="../Timer/">
+                            Next <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+    <div class="container">
+        
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="first-level active"><a href="#_1">用处</a></li>
+        <li class="first-level "><a href="#_2">结构</a></li>
+        <li class="first-level "><a href="#_3">补充知识</a></li>
+            <li class="second-level"><a href="#timestep">三种 Timestep 系统</a></li>
+                
+                <li class="third-level"><a href="#fixed-delta-time">Fixed delta time</a></li>
+                <li class="third-level"><a href="#variable-delta-time">Variable delta time</a></li>
+                <li class="third-level"><a href="#semi-fixed-timestep">Semi-fixed timestep</a></li>
+        <li class="first-level "><a href="#_4">资料来源</a></li>
+    </ul>
+</div></div>
+        <div class="col-md-9" role="main">
+
+<h1 id="_1">用处</h1>
+<p>实现稳定的时间步长。</p>
+<h1 id="_2">结构</h1>
+<p>将每一帧里对象的运动速度与该帧的渲染时间相乘，就可以抵消在不同运行环境下因为帧率而造成的数据差异。</p>
+<pre><code class="language-c++">class Timestep
+{
+public:
+    Timestep(float time = 0.0f)
+        : m_Time(time)
+    {
+    }
+
+    operator float() const { return m_Time; }
+
+    float GetSeconds() const { return m_Time; }
+    float GetMilliseconds() const { return m_Time * 1000.0f; }
+private:
+    float m_Time;
+};
+</code></pre>
+<h1 id="_3">补充知识</h1>
+<h2 id="timestep">三种 <strong>Timestep</strong> 系统</h2>
+<h3 id="fixed-delta-time">Fixed delta time</h3>
+<pre><code class="language-c++">double t = 0.0;
+double dt = 1.0 / 60.0;
+
+while (!quit)
+{
+    integrate(state, t, dt);
+    render(state);
+    t += dt;
+}
+</code></pre>
+<p>这种代码一般是启用 <strong>VSync</strong> 时调用的，因为此时已经知道调用渲染 <strong>Loop</strong> 的频率，比如这里显示器是 <strong>60</strong> 的帧率，就可以直接这么写。</p>
+<p>但这样写也不太好，因为它存在一个问题：如果 <strong>CPU</strong> 渲染的频率跟不上显示器的频率，那么这里的函数一秒就不能跑到 <strong>60</strong> 次，游戏里的逻辑就会变慢。而且如果没开 <strong>VSync</strong>，也会有问题。</p>
+<h3 id="variable-delta-time">Variable delta time</h3>
+<p>具体如上。</p>
+<p>不过这种方法，如果机器很差的话，帧与帧之间的 <strong>delta time</strong> 不仅可能会很大，而且每帧的 <strong>delta time</strong> 都是不同的。</p>
+<p>而对于物理模拟的系统来说，需要的是稳定不变，且较小的 <strong>delta time</strong>，只有这样，才能平滑的计算物理之间的变化。</p>
+<h3 id="semi-fixed-timestep">Semi-fixed timestep</h3>
+<p>类似于 <strong>Unity</strong> 的 <strong>FixedUpdate</strong> 函数，<strong>Unity</strong> 里的 <strong>Update</strong> 函数是每帧执行一次的函数，而 <strong>FixedUpdate</strong> 每帧可以执行任意多的次数，这取决于 <strong>Unity</strong> 的 <strong>time</strong> 相关的设置与游戏里实际的 <strong>framerate</strong>，如下图所示。</p>
+<p><img alt="Semi-fixed timeStep" src="../TimestepResources/Semi-fixedTimestep.png" /></p>
+<pre><code>FixedUpdate is used when you need to have something persistently cleanly applying at the same rate, and that’s usually physics, because physics needs to calculate stuff using time as an actual parameter.
+</code></pre>
+<p>初步思路是，当一帧所用时长，即 <strong>DeltaTime</strong> 大于规定的每帧的最大值时，在该帧多次处理 <strong>DeltaTime</strong>，类似于补帧操作，把 <strong>DeltaTime</strong> 细化为多个更小的 <strong>DeltaTime</strong>，相关代码如下：</p>
+<pre><code class="language-c++">double t = 0.0;
+double dt = 1 / 60.0;// 这是一个常量, 代表delta time的最大值
+
+double currentTime = hires_time_in_seconds();
+
+while (!quit)
+{
+    // 获取上一帧到这里的delta time
+    double newTime = hires_time_in_seconds();
+    double frameTime = newTime - currentTime;
+    currentTime = newTime;
+
+    // 注意这里的循环, 当frameTime大于1/60时, 这里会额外跑几次这个循环
+    // 它相当于把frameTime细分为了多个Timestep, 但都在这一帧内执行
+    while (frameTime &gt; 0.0)
+    {
+        float deltaTime = min(frameTime, dt);// delta time不允许超过1/60
+        // 
+        integrate(state, t, deltaTime);
+        frameTime -= deltaTime;
+        // t应该是真实的当前经历的时间
+        t += deltaTime;
+    }
+
+    render(state);
+}
+</code></pre>
+<p>这样写也会有一个缺点，如果这里的 <strong>Integrate</strong> 里的内容 <strong>CPU</strong> 消耗很高的话，容易陷入 <strong>Spiral Of Death</strong>，翻译过来就是循环死亡。</p>
+<p>举个例子，当前面代码的 <strong>integrate</strong> 函数，无法在给它分配的 <strong>frameTime</strong>里完成时，就会陷入无尽的循环</p>
+<h1 id="_4">资料来源</h1>
+<ol>
+<li><a href="https://blog.csdn.net/alexhu2010q/article/details/115829612">时间步长。</a></li>
+</ol></div>
+        
+        
+    </div>
+
+    
+      <footer class="col-md-12 text-center">
+          
+          
+            <hr>
+            <p>
+            <small><a href='https://github.com/zong4'>Documentation written by Zong.</small><br>
+            
+            <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small>
+            </p>
+          
+
+          
+          
+      </footer>
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../../js/bootstrap-3.0.3.min.js"></script>
+
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
+        
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    <script>var base_url = "../.."</script>
+    
+    <script src="../../js/base.js"></script>
+    <script src="../../search/main.js"></script>
+
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+    </body>
+
+</html>
