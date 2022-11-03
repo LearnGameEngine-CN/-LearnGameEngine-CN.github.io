@@ -288,81 +288,81 @@
 <p><strong>Character Controller</strong> 是个反物理系统，不会被 <strong>collider</strong> 撞开。</p>
 <p>总的来说，<strong>Character Controller</strong> 提供了一个较为符合现实直觉的角色基类。</p>
 <h2 id="collide-with-environment">Collide with environment</h2>
-<p><img alt="Collide with environment。" src="../ApplicationsResources/CollideWithEnvironment.jpg" /></p>
+<p><img alt="Collide with environment" src="../ApplicationsResources/CollideWithEnvironment.jpg" /></p>
 <h2 id="auto-stepping-and-its-problem">Auto Stepping and its Problem</h2>
-<p><img alt="Auto Stepping and its Problem。" src="../ApplicationsResources/AutoSteppingAndItsProblem.jpg" /></p>
+<p><img alt="Auto Stepping and its Problem" src="../ApplicationsResources/AutoSteppingAndItsProblem.jpg" /></p>
 <h2 id="slope-limits-and-force-sliding-down">Slope Limits and Force Sliding Down</h2>
 <p>滑坡掉落。</p>
 <pre><code>最近玩 OW 真的深有体会。
 </code></pre>
-<p><img alt="Slope Limits and Force Sliding Down。" src="../ApplicationsResources/SlopeLimitsAndForceSlidingDown.jpg" /></p>
+<p><img alt="Slope Limits and Force Sliding Down" src="../ApplicationsResources/SlopeLimitsAndForceSlidingDown.jpg" /></p>
 <h2 id="controller-volume-update">Controller Volume Update</h2>
 <p>比如下蹲的时候就要在做出下蹲动画的同时忽略上半身的体积碰撞。</p>
-<p><img alt="Controller Volume Update。" src="../ApplicationsResources/ControllerVolumeUpdate.jpg" /></p>
+<p><img alt="Controller Volume Update" src="../ApplicationsResources/ControllerVolumeUpdate.jpg" /></p>
 <h2 id="standing-on-moving-platform">Standing on Moving Platform</h2>
 <p>大概就是跟随平台上下移动更新（虽然没有绑定）。</p>
-<p><img alt="Standing on Moving Platform。" src="../ApplicationsResources/StandingOnMovingPlatform.jpg" /></p>
+<p><img alt="Standing on Moving Platform" src="../ApplicationsResources/StandingOnMovingPlatform.jpg" /></p>
 <h1 id="_2">布娃娃系统</h1>
-<p><img alt="Ragdoll。" src="../ApplicationsResources/Ragdoll.jpg" /></p>
+<p><img alt="Ragdoll" src="../ApplicationsResources/Ragdoll.jpg" /></p>
 <p><strong>Ragdoll</strong> 可以接管角色（原本由动画驱动），想象身体由关节（碰撞体）组成，<strong>Ragdoll</strong> 会自然模拟关节的碰撞。</p>
 <pre><code>在角色死亡时，打开物理模拟（运用物理资产）便是 Ragdoll 的一种体现。
 
 像人类一败涂地便是打开了一部分身体的物理模拟。
 </code></pre>
-<p><img alt="Animating Skeleton by Ragdoll。" src="../ApplicationsResources/AnimatingSkeletonByRagdoll.jpg" /></p>
+<p><img alt="Animating Skeleton by Ragdoll" src="../ApplicationsResources/AnimatingSkeletonByRagdoll.jpg" /></p>
 <p>完全由物理驱动的情况基本一般只能在角色死亡时出现，也是因为其大幅度的动作并不符合现实中角色的形态，因此大多数情况都是单用动画驱动或者对两者进行混合。</p>
-<p><img alt="Animating Skeleton by Ragdoll。" src="../ApplicationsResources/BlendingBetweenAnimationAndRagdoll.jpg" /></p>
+<p><img alt="Animating Skeleton by Ragdoll" src="../ApplicationsResources/BlendingBetweenAnimationAndRagdoll.jpg" /></p>
 <h1 id="_3">衣料模拟</h1>
 <h2 id="rigid-body-based-cloth-simulation">Rigid Body-based Cloth Simulation</h2>
 <p>比较传统的方法，运算量低，低精度的俯视三维游戏可以考虑用。</p>
-<p><img alt="Rigid Body-based Cloth Simulation。" src="../ApplicationsResources/RigidBody-basedClothSimulation.jpg" /></p>
+<p><img alt="Rigid Body-based Cloth Simulation" src="../ApplicationsResources/RigidBody-basedClothSimulation.jpg" /></p>
 <h2 id="mesh-based-cloth-simulation">Mesh-based Cloth Simulation</h2>
-<p><img alt="Render Mesh vs. Physical Mesh。" src="../ApplicationsResources/RenderMeshVSPhysicalMesh.jpg" /></p>
+<p><img alt="Render Mesh vs. Physical Mesh" src="../ApplicationsResources/RenderMeshVSPhysicalMesh.jpg" /></p>
 <h3 id="mass-spring-system">Mass Spring system</h3>
 <pre><code>不想聊数学了，看看布料模拟需要考虑到的力吧。
 </code></pre>
-<p><img alt="Mass Spring system。" src="../ApplicationsResources/MassSpringSystem.jpg" /></p>
+<p><img alt="Mass Spring system" src="../ApplicationsResources/MassSpringSystem.jpg" /></p>
 <h1 id="_4">破坏模拟</h1>
 <p>为了实现破坏的效果，需要先对可被破坏物进行分块，但是用不同的结构组织这些块会实现不同的破坏效果。</p>
 <h2 id="chunk-hierarchy">Chunk Hierarchy</h2>
 <p>按照破坏等级分层。</p>
-<p><img alt="Chunk Hierarchy。" src="../ApplicationsResources/ChunkHierarchy.jpg" /></p>
+<p><img alt="Chunk Hierarchy" src="../ApplicationsResources/ChunkHierarchy.jpg" /></p>
 <h2 id="connectivity-graph">Connectivity Graph</h2>
 <p>通过图去连接所有块，节点值就是该块可承受的强度。</p>
-<p><img alt="Connectivity Graph。" src="../ApplicationsResources/ConnectivityGraph.jpg" /></p>
-<p><img alt="Connectivity Value。" src="../ApplicationsResources/ConnectivityValue.jpg" /></p>
+<p><img alt="Connectivity Graph" src="../ApplicationsResources/ConnectivityGraph.jpg" /></p>
+<p><img alt="Connectivity Value" src="../ApplicationsResources/ConnectivityValue.jpg" /></p>
 <h2 id="build-chunks">Build Chunks</h2>
 <h3 id="voronoi-diagram">Voronoi Diagram</h3>
 <pre><code>真的很像细胞生长。
 </code></pre>
-<p><img alt="Voronoi Diagram。" src="../ApplicationsResources/VoronoiDiagram2D.jpg" /></p>
-<p><img alt="Voronoi Diagram。" src="../ApplicationsResources/VoronoiDiagram3D.jpg" /></p>
+<p><img alt="Voronoi Diagram" src="../ApplicationsResources/VoronoiDiagram2D.jpg" /></p>
+<p><img alt="Voronoi Diagram" src="../ApplicationsResources/VoronoiDiagram3D.jpg" /></p>
 <h2 id="destruction-in-physics-system">Destruction in Physics System</h2>
-<p><img alt="Destruction in Physics System。" src="../ApplicationsResources/DestructionInPhysicsSystem.jpg" /></p>
+<p><img alt="Destruction in Physics System" src="../ApplicationsResources/DestructionInPhysicsSystem.jpg" /></p>
 <h1 id="_5">载具模拟</h1>
 <h2 id="vehicle-mechanism-modeling">Vehicle Mechanism Modeling</h2>
-<p><img alt="Vehicle Mechanism Modeling。" src="../ApplicationsResources/VehicleMechanismModeling.jpg" /></p>
+<p><img alt="Vehicle Mechanism Modeling" src="../ApplicationsResources/VehicleMechanismModeling.jpg" /></p>
 <h2 id="force">Force</h2>
 <h3 id="traction-force">Traction Force</h3>
-<p><img alt="Traction Force。" src="../ApplicationsResources/TractionForce.png" /></p>
+<p><img alt="Traction Force" src="../ApplicationsResources/TractionForce.png" /></p>
 <h3 id="suspension-force">Suspension Force</h3>
-<p><img alt="Suspension Force。" src="../ApplicationsResources/SuspensionForce.jpg" /></p>
+<p><img alt="Suspension Force" src="../ApplicationsResources/SuspensionForce.jpg" /></p>
 <h3 id="tire-forces">Tire Forces</h3>
-<p><img alt="Tire Forces。" src="../ApplicationsResources/TireForces.jpg" /></p>
+<p><img alt="Tire Forces" src="../ApplicationsResources/TireForces.jpg" /></p>
 <h2 id="center-of-mass">Center of Mass</h2>
 <p>重心也很影响车的设计和体验，重心本身的计算就是两轮之间重量的中心点。</p>
 <p>一般来说，重心靠后会让车更稳定、转弯时更容易转大弯。</p>
-<p><img alt="Center of Mass。" src="../ApplicationsResources/CenterOfMass.jpg" /></p>
+<p><img alt="Center of Mass" src="../ApplicationsResources/CenterOfMass.jpg" /></p>
 <h2 id="weight-transfer">Weight Transfer</h2>
 <p>在实际驾驶中，汽车的重心是会发生变化的，主要是由驱动力产生，加速时靠后，减速时前移。</p>
 <pre><code>没开过，不懂。
 </code></pre>
-<p><img alt="Weight Transfer。" src="../ApplicationsResources/WeightTransfer.jpg" /></p>
+<p><img alt="Weight Transfer" src="../ApplicationsResources/WeightTransfer.jpg" /></p>
 <h2 id="steering-angles">Steering angles</h2>
-<p><img alt="Steering angles。" src="../ApplicationsResources/SteeringAngles.jpg" /></p>
+<p><img alt="Steering angles" src="../ApplicationsResources/SteeringAngles.jpg" /></p>
 <h2 id="advanced-wheel-contact">Advanced Wheel Contact</h2>
 <p>在过减速带时，如果简单的进行 <strong>raycast</strong> 会出现穿模，实际处理中要用 <strong>spherecast</strong>，将轮胎当作整体去判断碰撞。</p>
-<p><img alt="Advanced Wheel Contact。" src="../ApplicationsResources/AdvancedWheelContact.jpg" /></p>
+<p><img alt="Advanced Wheel Contact" src="../ApplicationsResources/AdvancedWheelContact.jpg" /></p>
 <h1 id="pbd-xpbd">高级：PBD 与 XPBD</h1>
 <p><a href="https://zhuanlan.zhihu.com/p/156760739">拉格朗日力学</a>：不同于牛顿力学中提到的物体的运动会受到限制，拉格朗日力学的思路正好相反，它由这些限制可以推导出物体的运动方式。</p>
 <pre><code>我理解不了，建议直接看文章。

@@ -234,16 +234,17 @@
         <li class="first-level active"><a href="#gpu">GPU 的工作</a></li>
             <li class="second-level"><a href="#_1">渲染管线</a></li>
                 
-            <li class="second-level"><a href="#_2">渲染流程</a></li>
-                
-                <li class="third-level"><a href="#_3">变换到相机的坐标系统中</a></li>
-                <li class="third-level"><a href="#shader">提交数据至 Shader</a></li>
+                <li class="third-level"><a href="#vertex-processing">Vertex Processing</a></li>
+                <li class="third-level"><a href="#triangle-processing">Triangle Processing</a></li>
+                <li class="third-level"><a href="#rasterization">Rasterization</a></li>
+                <li class="third-level"><a href="#fragment-processing">Fragment Processing</a></li>
+                <li class="third-level"><a href="#framebuffer-operations">Framebuffer Operations</a></li>
         <li class="first-level "><a href="#cpu">CPU 的工作</a></li>
         <li class="first-level "><a href="#api">抽象图形 API</a></li>
             <li class="second-level"><a href="#platform-specific">Platform specific</a></li>
                 
                 <li class="third-level"><a href="#graphicscontext">GraphicsContext</a></li>
-                <li class="third-level"><a href="#shader_1">Shader</a></li>
+                <li class="third-level"><a href="#shader">Shader</a></li>
                 <li class="third-level"><a href="#vbo">VBO</a></li>
                 <li class="third-level"><a href="#vao">VAO</a></li>
                 <li class="third-level"><a href="#ibo">IBO</a></li>
@@ -255,27 +256,27 @@
                 <li class="third-level"><a href="#renderer">Renderer</a></li>
                 <li class="third-level"><a href="#rendercommand">RenderCommand</a></li>
                 <li class="third-level"><a href="#camera">Camera</a></li>
-        <li class="first-level "><a href="#_4">可见性裁剪</a></li>
+        <li class="first-level "><a href="#_2">可见性裁剪</a></li>
             <li class="second-level"><a href="#bvh-culling">BVH Culling</a></li>
                 
             <li class="second-level"><a href="#early-z">Early-Z</a></li>
                 
-        <li class="first-level "><a href="#_5">纹理压缩</a></li>
+        <li class="first-level "><a href="#_3">纹理压缩</a></li>
             <li class="second-level"><a href="#block-compression">Block Compression</a></li>
                 
-        <li class="first-level "><a href="#_6">建模</a></li>
-            <li class="second-level"><a href="#_7">多边形建模</a></li>
+        <li class="first-level "><a href="#_4">建模</a></li>
+            <li class="second-level"><a href="#_5">多边形建模</a></li>
                 
-            <li class="second-level"><a href="#_8">雕刻</a></li>
+            <li class="second-level"><a href="#_6">雕刻</a></li>
                 
-            <li class="second-level"><a href="#_9">实体扫描</a></li>
+            <li class="second-level"><a href="#_7">实体扫描</a></li>
                 
-            <li class="second-level"><a href="#_10">程序化建模</a></li>
+            <li class="second-level"><a href="#_8">程序化建模</a></li>
                 
-            <li class="second-level"><a href="#_11">比较</a></li>
+            <li class="second-level"><a href="#_9">比较</a></li>
                 
-        <li class="first-level "><a href="#_12">新的模型管线</a></li>
-        <li class="first-level "><a href="#_13">资料来源</a></li>
+        <li class="first-level "><a href="#_10">新的模型管线</a></li>
+        <li class="first-level "><a href="#_11">资料来源</a></li>
     </ul>
 </div></div>
         <div class="col-md-9" role="main">
@@ -283,13 +284,38 @@
 <h1 id="gpu">GPU 的工作</h1>
 <h2 id="_1">渲染管线</h2>
 <p><img alt="渲染管线和数据" src="../BasicsOfGameRenderingSources/RenderingPipelineAndData.jpg" /></p>
-<h2 id="_2">渲染流程</h2>
-<h3 id="_3">变换到相机的坐标系统中</h3>
-<p>这在 <strong>GAMES101</strong> 的课里都有讲。</p>
-<p><img alt="坐标变换" src="../BasicsOfGameRenderingSources/Transform.jpg" /></p>
-<h3 id="shader">提交数据至 Shader</h3>
-<p><strong>Shader</strong> 中的运算流程就是渲染管线（大概）。</p>
-<p><img alt="Shader" src="../BasicsOfGameRenderingSources/Shader.jpg" /></p>
+<h3 id="vertex-processing">Vertex Processing</h3>
+<p>在 <strong>Vertex Shader</strong> 中主要是对 <strong>Vertex</strong> 进行处理，将它们从本地空间变换到视图空间。</p>
+<p><img alt="Vertex Processing" src="../BasicsOfGameRenderingSources/VertexProcessing.jpg" /></p>
+<ul>
+<li>坐标变换；</li>
+</ul>
+<p><img alt="View Transform" src="../BasicsOfGameRenderingSources/ViewTransform.jpg" /></p>
+<ul>
+<li>视口裁剪；</li>
+</ul>
+<p><img alt="Clipping" src="../BasicsOfGameRenderingSources/Clipping.jpg" /></p>
+<ul>
+<li>归一化坐标系；</li>
+</ul>
+<p><img alt="Perspective Divide" src="../BasicsOfGameRenderingSources/PerspectiveDivide.jpg" /></p>
+<ul>
+<li>映射至屏幕上。</li>
+</ul>
+<p><img alt="Viewport Mapping" src="../BasicsOfGameRenderingSources/ViewportMapping.jpg" /></p>
+<h3 id="triangle-processing">Triangle Processing</h3>
+<p>主要是根据 <strong>IBO</strong> 连接顶点。</p>
+<p><img alt="Triangle Processing" src="../BasicsOfGameRenderingSources/TriangleProcessing.jpg" /></p>
+<h3 id="rasterization">Rasterization</h3>
+<p><img alt="Rasterization" src="../BasicsOfGameRenderingSources/Rasterization.jpg" /></p>
+<p>主要就是了解一下<a href="https://learnopengl-cn.github.io/04%20Advanced%20OpenGL/11%20Anti%20Aliasing/">多重采样</a>吧。</p>
+<p><img alt="MSAA" src="../BasicsOfGameRenderingSources/MSAA.png" /></p>
+<h3 id="fragment-processing">Fragment Processing</h3>
+<p>在这里你只需要给每个顶点上色，<strong>GPU</strong> 就会通过插值求出每个像素点的颜色。</p>
+<p><img alt="Fragment Processing" src="../BasicsOfGameRenderingSources/FragmentProcessing.jpg" /></p>
+<p><img alt="Fragment Shader" src="../BasicsOfGameRenderingSources/FragmentShader.jpg" /></p>
+<h3 id="framebuffer-operations">Framebuffer Operations</h3>
+<p><strong>Fragment Processing</strong> 后需要对片元进行一系列测试，测试中保留的数据会被写入相应的缓冲区中，所有的缓冲区统称为帧缓冲区，最终通过所有测试的片元会被输出到屏幕上。</p>
 <h1 id="cpu">CPU 的工作</h1>
 <p>相比 <strong>GPU</strong>，<strong>CPU</strong> 主要是对抽象物体进行初始化以及管理。</p>
 <h1 id="api">抽象图形 API</h1>
@@ -305,7 +331,7 @@ public:
     virtual void SwapBuffer() = 0;
 };
 </code></pre>
-<h3 id="shader_1">Shader</h3>
+<h3 id="shader">Shader</h3>
 <p>内部提供了初始化以及对 <strong>Shade</strong> 的绑定和解绑。</p>
 <pre><code class="language-c++">class Shader
 {
@@ -563,7 +589,7 @@ private:
     float m_Rotation = 0.0f;
 };
 </code></pre>
-<h1 id="_4">可见性裁剪</h1>
+<h1 id="_2">可见性裁剪</h1>
 <h2 id="bvh-culling"><a href="https://blog.csdn.net/air_liang1212/article/details/105520107">BVH Culling</a></h2>
 <p><strong>BVH Culling</strong> 将整个空间不断细分成了不同大小的子包围盒，并用树去管理。</p>
 <p><img alt="BVH Culling" src="../BasicsOfGameRenderingSources/BVHCulling.jpg" /></p>
@@ -571,23 +597,23 @@ private:
 <h2 id="early-z">Early-Z</h2>
 <p>比当前光栅上渲染的图元深度更深的图元将会被丢弃。</p>
 <p><img alt="Early-Z" src="../BasicsOfGameRenderingSources/Early-Z.png" /></p>
-<h1 id="_5">纹理压缩</h1>
+<h1 id="_3">纹理压缩</h1>
 <p>为了满足随机访问图片像素的需求，游戏引擎中一般使用 <strong>Block</strong> 的思想，而不是用传统的图片压缩算法。</p>
 <h2 id="block-compression"><a href="https://zhuanlan.zhihu.com/p/199635682">Block Compression</a></h2>
 <p>以 <strong>DXTC</strong> 格式举例，对于每个划分的小块，取得其中最亮和最暗的像素点，那么我们就可以通过插值处理从而求得二者中间一系列的颜色。</p>
 <p><img alt="Block Compression" src="BasicsOfGameRenderingSources/BlockCompression.jpg.png" /></p>
-<h1 id="_6">建模</h1>
-<h2 id="_7">多边形建模</h2>
+<h1 id="_4">建模</h1>
+<h2 id="_5">多边形建模</h2>
 <p><img alt="多边形建模" src="../BasicsOfGameRenderingSources/PolygonModel.jpg" /></p>
-<h2 id="_8">雕刻</h2>
+<h2 id="_6">雕刻</h2>
 <p><img alt="雕刻" src="../BasicsOfGameRenderingSources/Carve.jpg" /></p>
-<h2 id="_9">实体扫描</h2>
+<h2 id="_7">实体扫描</h2>
 <p><img alt="实体扫描" src="../BasicsOfGameRenderingSources/Scan.jpg" /></p>
-<h2 id="_10">程序化建模</h2>
+<h2 id="_8">程序化建模</h2>
 <p><img alt="程序化建模" src="../BasicsOfGameRenderingSources/ProceduralModel.jpg" /></p>
-<h2 id="_11">比较</h2>
+<h2 id="_9">比较</h2>
 <p><img alt="比较" src="../BasicsOfGameRenderingSources/Compare.jpg" /></p>
-<h1 id="_12">新的模型管线</h1>
+<h1 id="_10">新的模型管线</h1>
 <p>核心思想是将模型分成多个 <strong>Cluster</strong>，根据这些 <strong>Cluster</strong> 与摄像机的远近来展示不同的细节。这要处理的好处在于：</p>
 <ol>
 <li>
@@ -600,7 +626,7 @@ private:
 <p>可以对模型进行 <strong>Cluster</strong> 剔除。</p>
 </li>
 </ol>
-<h1 id="_13">资料来源</h1>
+<h1 id="_11">资料来源</h1>
 <ol>
 <li>
 <p><a href="https://zhuanlan.zhihu.com/p/501405501"><strong>BVH Culling</strong>。</a></p>

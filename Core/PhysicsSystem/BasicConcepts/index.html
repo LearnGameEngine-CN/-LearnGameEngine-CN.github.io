@@ -291,23 +291,23 @@
 <h3 id="kinematic-actor">Kinematic Actor</h3>
 <p>不符合物理法则，由游戏玩法直接控制。</p>
 <h2 id="actor-shapes">Actor Shapes</h2>
-<p><img alt="Actor Shapes。" src="../BasicConceptsResources/ActorShapes.png" /></p>
+<p><img alt="Actor Shapes" src="../BasicConceptsResources/ActorShapes.png" /></p>
 <h1 id="_2">力与运动</h1>
 <h2 id="forces">Forces</h2>
 <h2 id="movement">Movement</h2>
 <h3 id="explicit-eulers-method">Explicit Euler's Method</h3>
-<p><img alt="Explicit Euler's Method。" src="../BasicConceptsResources/ExplicitEuler%27sMethod.png" /></p>
+<p><img alt="Explicit Euler's Method" src="../BasicConceptsResources/ExplicitEuler%27sMethod.png" /></p>
 <p>因为游戏中的 $\bigtriangleup t$ 远大于现实世界中的普朗克时间，所以可能会导致能量变多。</p>
 <h3 id="implicit-eulers-method">Implicit Euler's Method</h3>
-<p><img alt="Implicit Euler's Method。" src="../BasicConceptsResources/ImplicitEuler%27sMethod.png" /></p>
+<p><img alt="Implicit Euler's Method" src="../BasicConceptsResources/ImplicitEuler%27sMethod.png" /></p>
 <p>会导致能量变少（可以接受）。</p>
 <pre><code>解隐式欧拉法需要用追赶法解矩阵。
 </code></pre>
 <h3 id="semi-implicit-eulers-method">Semi-implicit Euler's Method</h3>
-<p><img alt="Semi-implicit Euler's Method。" src="../BasicConceptsResources/Semi-implicitEuler%27sMethod.png" /></p>
+<p><img alt="Semi-implicit Euler's Method" src="../BasicConceptsResources/Semi-implicitEuler%27sMethod.png" /></p>
 <p>需要假设力的大小与位置无关，再用未来的速度去计算未来的位移。</p>
 <h1 id="_3">刚体动力学</h1>
-<p><img alt="Rigid body Dynamics。" src="../BasicConceptsResources/RigidBodyDynamics.png" /></p>
+<p><img alt="Rigid body Dynamics" src="../BasicConceptsResources/RigidBodyDynamics.png" /></p>
 <pre><code>详见大物上。
 </code></pre>
 <h1 id="_4">碰撞检测</h1>
@@ -315,23 +315,23 @@
 <p>初筛，将所有物体都用 <strong>AABB</strong> 包围盒包裹，判断这些包围盒是否相交。</p>
 <h3 id="bvh-tree">BVH Tree</h3>
 <p>更新成本低，适合动态场景。</p>
-<p><img alt="BVH Tree。" src="../BasicConceptsResources/BVHTree.jpg" /></p>
+<p><img alt="BVH Tree" src="../BasicConceptsResources/BVHTree.jpg" /></p>
 <h3 id="sort-and-sweep">Sort and Sweep</h3>
 <p>分别按照 <strong>X</strong>，<strong>Y</strong> 和 <strong>Z</strong> 三个方向排序所有包围盒的边界，根据边界的交叉粗略判断包围盒是否相交，适合静态场景。</p>
-<p><img alt="Sort and Sweep。" src="../BasicConceptsResources/SortAndSweep.jpg" /></p>
+<p><img alt="Sort and Sweep" src="../BasicConceptsResources/SortAndSweep.jpg" /></p>
 <h2 id="narrow-phase">Narrow Phase</h2>
 <h3 id="basic-shape-intersection-test">Basic Shape Intersection Test</h3>
 <h3 id="minkowski-difference-based-methods">Minkowski Difference-based Methods</h3>
 <p>以两个三角形各自围成的点集为例，两个点集相加的结果是指 <strong>A</strong> 点集中所有的点沿着 <strong>B</strong> 的轮廓走一遍后拼出的图形，几何表示如下：</p>
-<p><img alt="Minkowski Sum。" src="../BasicConceptsResources/MinkowskiSum.png" /></p>
+<p><img alt="Minkowski Sum" src="../BasicConceptsResources/MinkowskiSum.png" /></p>
 <p>两个点集相加的结果是指 <strong>A</strong> 点集中所有的点沿着 <strong>B</strong> 的轮廓走一遍后拼出的图形，几何表示如下：</p>
-<p><img alt="Minkowski Difference。" src="../BasicConceptsResources/MinkowskiDifference.png" /></p>
+<p><img alt="Minkowski Difference" src="../BasicConceptsResources/MinkowskiDifference.png" /></p>
 <p>多次尝试后可以得出结论，如果两个凸包重叠，则它们的闵可夫斯基差必定包含原点，而 <a href="https://zhuanlan.zhihu.com/p/511164248"><strong>GJK</strong> 算法</a>可以利用此特性快速判断凸包是否相交。</p>
 <h3 id="separating-axis-theorem">Separating Axis Theorem</h3>
 <p>如果两凸包不相交，则一定能用任一凸包的一条边将两个凸包分离至两侧。</p>
-<p><img alt="Separating Axis Theorem 2D Case。" src="../BasicConceptsResources/SeparatingAxisTheorem2DCase.jpg" /></p>
+<p><img alt="Separating Axis Theorem 2D Case" src="../BasicConceptsResources/SeparatingAxisTheorem2DCase.jpg" /></p>
 <p><strong>3D</strong> 情况下就要用面去分离。</p>
-<p><img alt="Separating Axis Theorem 3D Case。" src="../BasicConceptsResources/SeparatingAxisTheorem3DCase.jpg" /></p>
+<p><img alt="Separating Axis Theorem 3D Case" src="../BasicConceptsResources/SeparatingAxisTheorem3DCase.jpg" /></p>
 <h1 id="_5">碰撞解决</h1>
 <h2 id="applying-penalty-force">Applying Penalty Force</h2>
 <p>直接用力将两个物体弹开。</p>
@@ -339,28 +339,28 @@
 <p>在约束条件限制下用小步迭代法找冲量解。</p>
 <pre><code>之所以是冲量而不是力，主要是考虑到冲量可以直接转换成速度去计算。
 </code></pre>
-<p><img alt="Solving Constraints。" src="../BasicConceptsResources/SolvingConstraints1.jpg" /></p>
-<p><img alt="Solving Constraints。" src="../BasicConceptsResources/SolvingConstraints1.jpg" /></p>
-<p><img alt="Solving Constraints。" src="../BasicConceptsResources/SolvingConstraints3.jpg" /></p>
+<p><img alt="Solving Constraints" src="../BasicConceptsResources/SolvingConstraints1.jpg" /></p>
+<p><img alt="Solving Constraints" src="../BasicConceptsResources/SolvingConstraints1.jpg" /></p>
+<p><img alt="Solving Constraints" src="../BasicConceptsResources/SolvingConstraints3.jpg" /></p>
 <p>为了防止死循环，还会设置迭代精度以及迭代步长等超参数。</p>
 <h1 id="_6">场景请求</h1>
 <h2 id="raycast">Raycast</h2>
-<p><img alt="Raycast。" src="../BasicConceptsResources/Raycast.jpg" /></p>
+<p><img alt="Raycast" src="../BasicConceptsResources/Raycast.jpg" /></p>
 <h2 id="sweep">Sweep</h2>
-<p><img alt="Sweep。" src="../BasicConceptsResources/Sweep.jpg" /></p>
+<p><img alt="Sweep" src="../BasicConceptsResources/Sweep.jpg" /></p>
 <h2 id="overlap">Overlap</h2>
 <p>爆炸检测用的。</p>
-<p><img alt="Overlap。" src="../BasicConceptsResources/Overlap.jpg" /></p>
+<p><img alt="Overlap" src="../BasicConceptsResources/Overlap.jpg" /></p>
 <h1 id="_7">效率，准确性与确定性</h1>
 <h2 id="sleeping">Sleeping</h2>
 <p>将场景中的对象分成好几个 <strong>Island</strong>，如果一些 <strong>Island</strong> 一段时间内没有变化，则让它们 <strong>Sleeping</strong>。</p>
-<p><img alt="Sleeping。" src="../BasicConceptsResources/Sleeping.jpg" /></p>
+<p><img alt="Sleeping" src="../BasicConceptsResources/Sleeping.jpg" /></p>
 <h2 id="continuous-collision-detection">Continuous Collision Detection</h2>
 <p>当一个快速运动的对象碰撞一个比较薄的物体时容易发生错误而直接穿过去（前后两次计算都没有发现碰撞）。</p>
 <p>可以先预估一个安全距离，在这个距离外时正常计算，在这个距离内则需要降低迭代步长，提高计算精度。</p>
-<p><img alt="Continuous Collision Detection。" src="../BasicConceptsResources/ContinuousCollisionDetection.jpg" /></p>
+<p><img alt="Continuous Collision Detection" src="../BasicConceptsResources/ContinuousCollisionDetection.jpg" /></p>
 <h2 id="deterministic-simulation">Deterministic Simulation</h2>
-<p><img alt="Deterministic Simulation。" src="../BasicConceptsResources/DeterministicSimulation.jpg" /></p>
+<p><img alt="Deterministic Simulation" src="../BasicConceptsResources/DeterministicSimulation.jpg" /></p>
 <p>实现确定性模拟，就意味着如果两台电脑的输入相同，那么它们显示的内容也会相同，这也是联机游戏的基础。</p>
 <script type="text/javascript" id="MathJax-script" async
   src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.0.0/es5/tex-mml-chtml.js">

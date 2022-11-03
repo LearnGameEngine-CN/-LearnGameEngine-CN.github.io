@@ -285,7 +285,7 @@ while (!quit)
 <p>而对于物理模拟的系统来说，需要的是稳定不变，且较小的 <strong>delta time</strong>，只有这样，才能平滑的计算物理之间的变化。</p>
 <h3 id="semi-fixed-timestep">Semi-fixed timestep</h3>
 <p>类似于 <strong>Unity</strong> 的 <strong>FixedUpdate</strong> 函数，<strong>Unity</strong> 里的 <strong>Update</strong> 函数是每帧执行一次的函数，而 <strong>FixedUpdate</strong> 每帧可以执行任意多的次数，这取决于 <strong>Unity</strong> 的 <strong>time</strong> 相关的设置与游戏里实际的 <strong>framerate</strong>，如下图所示。</p>
-<p><img alt="Semi-fixed timeStep。" src="../TimestepResources/Semi-fixedTimestep.png" /></p>
+<p><img alt="Semi-fixed timeStep" src="../TimestepResources/Semi-fixedTimestep.png" /></p>
 <pre><code>FixedUpdate is used when you need to have something persistently cleanly applying at the same rate, and that’s usually physics, because physics needs to calculate stuff using time as an actual parameter.
 </code></pre>
 <p>初步思路是，当一帧所用时长，即 <strong>DeltaTime</strong> 大于规定的每帧的最大值时，在该帧多次处理 <strong>DeltaTime</strong>，类似于补帧操作，把 <strong>DeltaTime</strong> 细化为多个更小的 <strong>DeltaTime</strong>，相关代码如下：</p>

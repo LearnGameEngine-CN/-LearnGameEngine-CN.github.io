@@ -255,32 +255,32 @@
 
 <h1 id="_1">事件机制</h1>
 <p>实现事件机制需要以下三个功能模块。</p>
-<p><img alt="事件机制。" src="../GameplayBasicsSources/EventMechanism.jpg" /></p>
+<p><img alt="事件机制" src="../GameplayBasicsSources/EventMechanism.jpg" /></p>
 <h2 id="event-definition">Event Definition</h2>
 <p>定义事件的类型。</p>
-<p><img alt="Event Definition。" src="../GameplayBasicsSources/EventDefinition.png" /></p>
+<p><img alt="Event Definition" src="../GameplayBasicsSources/EventDefinition.png" /></p>
 <h2 id="callback-registration">Callback Registration</h2>
 <p>事件激活回调函数。</p>
-<p><img alt="Callback Registration。" src="../GameplayBasicsSources/CallbackRegistration.png" /></p>
+<p><img alt="Callback Registration" src="../GameplayBasicsSources/CallbackRegistration.png" /></p>
 <p>为了防止拥有回调函数的对象被删除导致事件激活了野指针，出现了对象强引用和对象弱引用。</p>
 <h3 id="object-strong-reference">Object Strong Reference</h3>
 <p>如果对象 <strong>A</strong> 的生命周期内可以激活对象 <strong>B</strong> 的回调函数，那么 <strong>B</strong> 一定要后于 <strong>A</strong> 被销毁（内存锁定）。</p>
-<p><img alt="Object Strong Reference。" src="../GameplayBasicsSources/ObjectStrongReference.png" /></p>
+<p><img alt="Object Strong Reference" src="../GameplayBasicsSources/ObjectStrongReference.png" /></p>
 <h3 id="object-weak-reference">Object Weak Reference</h3>
 <p>在激活前判断对象是否已被销毁。</p>
-<p><img alt="Object Weak Reference。" src="../GameplayBasicsSources/ObjectWeakReference.png" /></p>
+<p><img alt="Object Weak Reference" src="../GameplayBasicsSources/ObjectWeakReference.png" /></p>
 <h2 id="event-despatching">Event Despatching</h2>
-<p><img alt="Event Despatching。" src="../GameplayBasicsSources/EventDespatching.png" /></p>
+<p><img alt="Event Despatching" src="../GameplayBasicsSources/EventDespatching.png" /></p>
 <h3 id="event-despatching-immediate">Event Despatching : Immediate</h3>
 <p>直接派发消息会导致消息等待，同时会人为的造成消息间的关联，导致并发性降低。</p>
-<p><img alt="Event Despatching : Immediate。" src="../GameplayBasicsSources/EventDespatchingImmediate.png" /></p>
+<p><img alt="Event Despatching : Immediate" src="../GameplayBasicsSources/EventDespatchingImmediate.png" /></p>
 <h3 id="event-despatching-queue">Event Despatching : Queue</h3>
 <p>将一帧的事件储存起来，在下一帧来临前完成处理。</p>
-<p><img alt="Event Despatching : Queue。" src="../GameplayBasicsSources/EventDespatchingQueue.png" /></p>
+<p><img alt="Event Despatching : Queue" src="../GameplayBasicsSources/EventDespatchingQueue.png" /></p>
 <ul>
 <li>可以通过环形队列控制消息占用的内存空间。</li>
 </ul>
-<p><img alt="RingBuffer。" src="../GameplayBasicsSources/RingBuffer.png" /></p>
+<p><img alt="RingBuffer" src="../GameplayBasicsSources/RingBuffer.png" /></p>
 <ul>
 <li>对消息分类处理。</li>
 </ul>
@@ -296,10 +296,10 @@
 <h1 id="_2">脚本系统</h1>
 <h2 id="_3">引擎调用脚本</h2>
 <p>类似于 <strong>Unity</strong>，通过脚本扩充 <strong>Component</strong> 功能。</p>
-<p><img alt="Scripting System 1。" src="../GameplayBasicsSources/ScriptingSystem1.png" /></p>
+<p><img alt="Scripting System 1" src="../GameplayBasicsSources/ScriptingSystem1.png" /></p>
 <h2 id="_4">脚本调用引擎</h2>
 <p>将引擎视为 <strong>SDK</strong>，暴露接口供脚本调用。</p>
-<p><img alt="Scripting System 2。" src="../GameplayBasicsSources/ScriptingSystem2.jpg" /></p>
+<p><img alt="Scripting System 2" src="../GameplayBasicsSources/ScriptingSystem2.jpg" /></p>
 <h1 id="_5">可视化脚本</h1>
 <p>并不想提太多可视化脚本的事情，涉及到了反射宏（类似于 <strong>UE</strong> 将代码反射到蓝图中）。</p>
 <h1 id="3c-system">3C System</h1>
