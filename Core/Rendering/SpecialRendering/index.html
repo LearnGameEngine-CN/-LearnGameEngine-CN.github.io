@@ -255,26 +255,26 @@
                 
             <li class="second-level"><a href="#brdf">BRDF</a></li>
                 
+                <li class="third-level"><a href="#cook-torrance-brdf">Cook-Torrance BRDF</a></li>
             <li class="second-level"><a href="#pbr-specular-glossiness">PBR Specular Glossiness</a></li>
                 
             <li class="second-level"><a href="#pbr-metallic-roughness">PBR Metallic Roughness</a></li>
                 
         <li class="first-level "><a href="#ibl">IBL</a></li>
-        <li class="first-level "><a href="#_11">经典阴影方法</a></li>
+        <li class="first-level "><a href="#_13">经典阴影方法</a></li>
             <li class="second-level"><a href="#cascade-shadow">Cascade Shadow</a></li>
                 
-            <li class="second-level"><a href="#_12">软阴影</a></li>
+            <li class="second-level"><a href="#_14">软阴影</a></li>
                 
                 <li class="third-level"><a href="#pcf-and-pcss">PCF and PCSS</a></li>
                 <li class="third-level"><a href="#vssm">VSSM</a></li>
-        <li class="first-level "><a href="#_13">资料来源</a></li>
+        <li class="first-level "><a href="#_15">资料来源</a></li>
     </ul>
 </div></div>
         <div class="col-md-9" role="main">
 
 <h1 id="_1">写在前面的话</h1>
 <p>这里的许多内容都直接搬运自 <a href="https://learnopengl-cn.github.io/07%20PBR/01%20Theory/#_1"><strong>LearnOpenGL</strong></a>。</p>
-<p>虽然原文有些许冗杂，但是确实足够通俗易懂，因此至少目前不会再自己精炼一遍，也是担心不够成熟的自己在精炼文章时删去了一些重要的内容。</p>
 <h1 id="_2">渲染方程</h1>
 <p><img alt="渲染方程" src="../SpecialRenderingSources/TheRenderingEquation.png" /></p>
 <ul>
@@ -287,14 +287,14 @@
 </ul>
 <h1 id="_3">基础光照解决方案</h1>
 <h2 id="phong-lighting-model"><a href="https://learnopengl-cn.github.io/02%20Lighting/02%20Basic%20Lighting/">Phong Lighting Model</a></h2>
-<p>冯氏光照模型的主要结构由 <strong>3</strong> 个分量组成：环境（<strong>Ambient</strong>）、漫反射（<strong>Diffuse</strong>）和镜面（<strong>Specular</strong>）光照。下面这张图展示了这些光照分量看起来的样子。</p>
+<p>冯氏光照模型主要由 <strong>3</strong> 个分量组成：环境（<strong>Ambient</strong>）、漫反射（<strong>Diffuse</strong>）和镜面（<strong>Specular</strong>）光照。</p>
 <p><img alt="冯氏光照模型" src="../SpecialRenderingSources/BasicLightingPhong.png" /></p>
 <ul>
 <li>
-<p>环境光照（<strong>Ambient Lighting</strong>）：即使在黑暗的情况下，世界上通常也仍然有一些光亮（月亮、远处的光），所以物体几乎永远不会是完全黑暗的。为了模拟这个，我们会使用一个环境光照常量，它永远会给物体一些颜色；</p>
+<p>环境光照（<strong>Ambient Lighting</strong>）：即使在黑暗的情况下，世界上通常也仍然有一些光亮（月亮、远处的光），所以物体几乎永远不会是完全黑暗的；</p>
 </li>
 <li>
-<p>漫反射光照（<strong>Diffuse Lighting</strong>）：模拟光源对物体的方向性影响。它是冯氏光照模型中视觉上最显著的分量。物体的某一部分越是正对着光源，它就会越亮；</p>
+<p>漫反射光照（<strong>Diffuse Lighting</strong>）：模拟光源对物体的方向性影响，物体的某一部分越是正对着光源，它就会越亮；</p>
 </li>
 <li>
 <p>镜面光照（<strong>Specular Lighting</strong>）：模拟有光泽物体上面出现的亮点，镜面光照的颜色相比于物体的颜色会更倾向于光的颜色。</p>
@@ -341,7 +341,6 @@
 <li>光照效果受采样点数量影响。</li>
 </ol>
 <h1 id="pbr"><a href="https://learnopengl-cn.github.io/07%20PBR/01%20Theory/">PBR</a></h1>
-<p>判断一种 <strong>PBR</strong> 光照模型是否是基于物理的，必须满足以下三个条件：</p>
 <ol>
 <li>
 <p>基于微平面（<strong>Microfacet</strong>）的表面模型；</p>
@@ -354,43 +353,36 @@
 </li>
 </ol>
 <h2 id="_8">微平面模型</h2>
-<p>微平面理论认为，达到微观尺度之后任何平面都可以用被称为微平面的细小镜面来进行描绘。根据平面粗糙程度的不同，这些细小镜面的取向排列可以相当不一致。</p>
+<p>微平面理论认为，达到微观尺度之后任何平面都可以用被称为微平面的细小镜面来进行描绘。</p>
+<p>而根据平面粗糙程度的不同，这些细小镜面的取向排列可以相当不一致。</p>
 <p><img alt="Microfacets" src="../SpecialRenderingSources/Microfacets.png" /></p>
-<p>产生的效果就是：一个平面越是粗糙，这个平面上的微平面的排列就越混乱。</p>
-<p>这些微小镜面这样无序取向排列的影响就是，当我们特指镜面光（镜面反射）时，入射光线更趋向于向完全不同的方向发散开来，进而产生出分布范围更广泛的镜面反射。而与之相反的是，对于一个光滑的平面，光线大体上会更趋向于向同一个方向反射，造成更小更锐利的反射。</p>
+<p>因此，对于一个的平面，粗糙度越低，光线越趋向于向同一个方向反射，从而造成更小更锐利的反射。</p>
 <p><img alt="Scatter" src="../SpecialRenderingSources/Scatter.png" /></p>
-<p>在微观尺度下，没有任何平面是完全光滑的。然而由于这些微平面已经微小到无法逐像素的继续对其进行区分，因此我们只有假设一个粗糙度参数，然后用统计学的方法来概略的估算微平面的粗糙程度。</p>
-<p>我们可以基于一个平面的粗糙度来计算出某个向量的方向与微平面平均取向方向一致的概率。这个向量便是位于光线向量 <strong>l</strong> 和视线向量 <strong>v</strong> 之间的中间向量（<strong>Halfway Vector</strong>），计算方法如下。</p>
+<p>可以定义一个中间向量（<strong>Halfway Vector</strong>）代表目标法向量，其位于光线向量 <strong>l</strong> 和视线向量 <strong>v</strong> 之间，计算方法如下：</p>
 <p>$$h=\frac{l+v}{||l+v||} $$</p>
-<p>微平面的取向方向与中间向量的方向越是一致，镜面反射的效果就越是强烈越是锐利。然后再加上一个介于 <strong>0</strong> 到 <strong>1</strong> 之间的粗糙度参数，这样我们就能概略的估算微平面的取向情况了。</p>
+<p>而微平面的取向方向与中间向量的方向越是一致，镜面反射的效果就越是强烈越是锐利。</p>
+<p>再加上一个介于 <strong>0</strong> 到 <strong>1</strong> 之间的粗糙度参数，就能估算微平面的取向情况了。</p>
 <p><img alt="Roughness" src="../SpecialRenderingSources/Roughness.png" /></p>
 <p>较高的粗糙度值显示出来的镜面反射的轮廓要更大一些。与之相反地，较小的粗糙值显示出的镜面反射轮廓则更小更锐利。</p>
 <h2 id="_9">能量守恒</h2>
-<p>微平面近似法使用了这样一种形式的能量守恒：出射光线的能量永远不能超过入射光线的能量（发光面除外）。</p>
-<p>如图示我们可以看到，随着粗糙度的上升镜面反射区域的会增加，但是镜面反射的亮度却会下降。如果不管反射轮廓的大小而让每个像素的镜面反射强度都一样的话，那么粗糙的平面就会放射出过多的能量，而这样就违背了能量守恒定律。这也就是为什么正如我们看到的一样，光滑平面的镜面反射更强烈而粗糙平面的反射更昏暗。</p>
-<p>为了遵守能量守恒定律，我们需要对漫反射光和镜面反射光之间做出明确的区分。当一束光线碰撞到一个表面的时候，它就会分离成一个折射部分和一个反射部分。</p>
+<!-- 微平面近似法使用了这样一种形式的能量守恒：出射光线的能量永远不能超过入射光线的能量（发光面除外）。 -->
+
+<p>当一束光线碰撞到一个表面时，它就会分离成折射部分和反射部分。</p>
 <ul>
 <li>
-<p>反射部分就是会直接反射开来而不会进入平面的那部分光线，这就是我们所说的镜面光照；</p>
+<p>反射部分会直接反射开而不会进入平面，它们构成了镜面光照；</p>
 </li>
 <li>
-<p>折射部分就是余下的会进入表面并被吸收的那部分光线，这也就是我们所说的漫反射光照。</p>
+<p>折射部分就是余下的进入表面的光，它们中未被物体吸收而逃逸出的构成了漫反射光照。</p>
 </li>
 </ul>
-<p>通过物理学我们可以得知，光线实际上可以被认为是一束没有耗尽就不停向前运动的能量，而光束是通过碰撞的方式来消耗能量。</p>
-<p>每一种材料都是由无数微小的粒子所组成，这些粒子都能如下图所示一样与光线发生碰撞。这些粒子在每次的碰撞中都可以吸收光线所携带的一部分或者是全部的能量而后转变成为热量。</p>
 <p><img alt="Surface Reaction" src="../SpecialRenderingSources/SurfaceReaction.png" /></p>
-<p>一般来说，并非所有能量都会被全部吸收，而光线也会继续沿着（基本上）随机的方向发散，然后再和其他的粒子碰撞直至能量完全耗尽或者再次离开这个表面。而光线脱离物体表面后将会协同构成该表面的（漫反射）颜色。</p>
-<p>不过在基于物理的渲染之中我们进行了简化，假设对平面上的每一点所有的折射光都会被完全吸收而不会散开。而有一些被称为次表面散射技术的着色器技术将这个问题考虑了进去，它们显著的提升了一些诸如皮肤，大理石或者蜡质这样材质的视觉效果，不过伴随而来的则是性能下降代价。</p>
-<p>对于金属表面，当讨论到反射与折射的时候还有一个细节需要注意。金属表面对光的反应与非金属材料（也被称为介电质材料）表面相比是不同的。</p>
-<p>它们遵从的反射与折射原理是相同的，但是所有的折射光都会被直接吸收而不会散开，只留下反射光或者说镜面反射光。亦即是说，金属表面不会显示出漫反射颜色。由于金属与电介质之间存在这样明显的区别，因此它们两者在 <strong>PBR</strong> 渲染管线中被区别处理。</p>
-<p>反射光与折射光之间的这个区别使我们得到了另一条关于能量守恒的经验结论：反射光与折射光它们二者之间是互斥的关系。无论何种光线，其被材质表面所反射的能量将无法再被材质吸收。因此，诸如折射光这样的余下的进入表面之中的能量正好就是我们计算完反射之后余下的能量。</p>
-<p>我们按照能量守恒的关系，首先计算镜面反射部分，它的值等于入射光线被反射的能量所占的百分比。然后折射光部分就可以直接由镜面反射部分计算得出。</p>
+<p>对于金属表面而言，所有的折射部分都会被直接吸收，只留下反射部分。因此，金属表面不会显示出漫反射颜色。</p>
+<p>在实际写 <strong>Shader</strong> 的过程中，可以如下描述光打向物体表面的过程。</p>
 <pre><code>float kS = calculateSpecularComponent(...); // 反射/镜面 部分
 
 float kD = 1.0 - ks;                        // 折射/漫反射 部分
 </code></pre>
-<p>这样我们就能在遵守能量守恒定律的前提下知道入射光线的反射部分与折射部分所占的总量了。按照这种方法折射，漫反射与反射以及镜面反射所占的份额都不会超过 <strong>1.0</strong>，如此就能保证它们的能量总和永远不会超过入射光线的能量。</p>
 <h2 id="_10">反射率方程</h2>
 <p>这块就是在渲染方程中提到的外界辐射量。</p>
 <p>$$\int_{H^{2}}^{}f_{r} (x,w_{o},w_{i})L_{i}(x,w_{i})\cos \theta_{i}dw_{i}$$</p>
@@ -398,22 +390,23 @@ float kD = 1.0 - ks;                        // 折射/漫反射 部分
 <h2 id="brdf">BRDF</h2>
 <p>其实所谓的反射率方程过于理想化了，并没有将观察点的材质考虑在内，所以才有了 <strong>BRDF</strong>。</p>
 <p><strong>BRDF</strong>，或者说双向反射分布函数，它接受入射（光）方向 $w_{i}$，出射（观察）方向 $w_{o}$，平面法线 $n$ 以及一个用来表示微平面粗糙程度的参数 $a$ 作为函数的输入参数。</p>
-<p><strong>BRDF</strong> 可以近似的求出每束光线对一个给定了材质属性的平面上最终反射出来的光线所作出的贡献程度。举例来说，如果一个平面拥有完全光滑的表面（比如镜面），那么对于所有的入射光线 $w_{i}$（除了一束以外）而言 <strong>BRDF</strong> 函数都会返回 <strong>0.0</strong>，只有一束与出射光线 $w_{o}$ 拥有相同（被反射）角度的光线会得到 <strong>1.0</strong> 这个返回值。</p>
-<p><strong>BRDF</strong> 基于我们之前所探讨过的微平面理论来近似的求得材质的反射与折射属性。对于一个 <strong>BRDF</strong>，为了实现物理学上的可信度，它必须遵守能量守恒定律，也就是说反射光线的总和永远不能超过入射光线的总量。</p>
-<p>严格上来说，同样采用 $w_{i}$ 和 $w_{o}$ 作为输入参数的  <strong>Blinn-Phong</strong> 光照模型也被认为是一个 <strong>BRDF</strong>。然而由于 <strong>Blinn-Phong</strong> 模型并没有遵循能量守恒定律，因此它不被认为是基于物理的渲染。</p>
-<p>现在已经有很好几种 <strong>BRDF</strong> 都能近似的得出物体表面对于光的反应，但是几乎所有实时渲染管线使用的都是一种被称为 <strong>Cook-Torrance BRDF</strong> 模型。</p>
+<!-- **BRDF** 可以近似的求出每束光线对一个给定了材质属性的平面上最终反射出来的光线所作出的贡献程度。 -->
+<p><strong>BRDF</strong> 基于我们之前所探讨过的微平面理论来近似的求得材质的反射与折射属性。</p>
+<h3 id="cook-torrance-brdf">Cook-Torrance BRDF</h3>
 <p><strong>Cook-Torrance BRDF</strong> 兼有漫反射和镜面反射两个部分：</p>
 <p>$$f_{r}=k_{d}f_{lambert}+k_{s}f_{cook-torrance}$$</p>
-<p>这里的 $k_{d}$ 是早先提到过的入射光线中被折射部分的能量所占的比率，而 $k_{s}$ 是被反射部分的比率。<strong>BRDF</strong> 的左侧表示的是漫反射部分，这里用 $f_{lambert}$ 来表示。它被称为 <strong>Lambertian</strong> 漫反射，这和我们之前在漫反射着色中使用的常数因子类似，用如下的公式来表示：</p>
+<p>其中 $k_{d}$ 表示入射光线中折射部分所占的能量比率，$k_{s}$ 表示反射部分所占的能量比率。</p>
+<h4 id="_11">漫反射</h4>
+<p>$f_{lambert}$ 表示漫反射（<strong>Lambertian</strong> 漫反射），用如下的公式来表示：</p>
 <p>$$f_{lambert}=\frac{c}{π}$$</p>
-<p>$c$ 表示表面颜色（回想一下漫反射表面纹理）。除以 $π$ 是为了对漫反射光进行标准化，因为前面含有 <strong>BRDF</strong> 的积分方程是受 $π$ 影响的。</p>
-<p>目前存在着许多不同类型的模型来实现 <strong>BRDF</strong> 的漫反射部分，大多看上去都相当真实，但是相应的运算开销也非常的昂贵。</p>
-<p><strong>BRDF</strong> 的镜面反射部分要稍微更高级一些，它的形式如下所示：</p>
+<p>其中 $c$ 表示表面颜色，除以 $π$ 是为了对漫反射光进行标准化，因为前面含有 <strong>BRDF</strong> 的积分方程是受 $π$ 影响的。</p>
+<h4 id="_12">镜面反射</h4>
+<p>$f_{cook-torrance}$ 表示镜面反射，用如下的公式来表示：</p>
 <p>$$f_{cook−torrance}=\frac{DFG}{4(w_{o}⋅n)(w_{i}⋅n)}$$</p>
-<p><strong>Cook-Torrance BRDF</strong> 的镜面反射部分包含三个函数，此外分母部分还有一个标准化因子。字母 <strong>D</strong>，<strong>F</strong> 与 <strong>G</strong> 分别代表着一种类型的函数，各个函数分别用来近似的计算出表面反射特性的一个特定部分。三个函数分别为法线分布函数（<strong>Normal Distribution Function</strong>），菲涅尔方程（<strong>Fresnel Rquation</strong>）和几何函数（<strong>Geometry Function</strong>）：</p>
+<p>其中，<strong>D</strong>，<strong>F</strong> 与 <strong>G</strong> 表示一种类型的函数，它们是法线分布函数（<strong>Normal Distribution Function</strong>），菲涅尔方程（<strong>Fresnel Rquation</strong>）和几何函数（<strong>Geometry Function</strong>），分别用来近似的计算出表面反射特性的一个特定部分。</p>
 <ul>
 <li>
-<p>法线分布函数：估算在受到表面粗糙度的影响下，取向方向与中间向量一致的微平面的数量。这是用来估算微平面的主要函数；</p>
+<p>法线分布函数：估算在受到表面粗糙度的影响下，取向方向与中间向量一致的微平面的数量；</p>
 </li>
 <li>
 <p>几何函数：描述了微平面自成阴影的属性。当一个平面相对比较粗糙的时候，平面表面上的微平面有可能挡住其他的微平面从而减少表面所反射的光线；</p>
@@ -422,39 +415,38 @@ float kD = 1.0 - ks;                        // 折射/漫反射 部分
 <p>菲涅尔方程：菲涅尔方程描述的是在不同的表面角下表面所反射的光线所占的比率。</p>
 </li>
 </ul>
-<p>以上的每一种函数都是用来估算相应的物理参数的，而且你会发现用来实现相应物理机制的每种函数都有不止一种形式。它们有的非常真实，有的则性能高效。你可以按照自己的需求任意选择自己想要的函数的实现方法。</p>
-<p>但是在这里我并不想过多介绍这些函数和方程，如果你想深入了解，可以转到<a href="https://learnopengl-cn.github.io/07%20PBR/01%20Theory/#brdf">该文档</a>中。</p>
+<p>在这里我并不想过多介绍这些函数和方程，如果你想深入了解，可以转到<a href="https://learnopengl-cn.github.io/07%20PBR/01%20Theory/#brdf">该文档</a>中。</p>
 <h2 id="pbr-specular-glossiness">PBR Specular Glossiness</h2>
 <p><img alt="PBR Specular Glossiness" src="../SpecialRenderingSources/PBRSpecularGlossiness.png" /></p>
 <p>唯一的缺点是其过于的灵活，假如 <strong>Specular</strong> 参数设置不好，<strong>Fresnel</strong> 项就会发生问题。</p>
 <h2 id="pbr-metallic-roughness">PBR Metallic Roughness</h2>
 <p><img alt="PBR Metallic Roughness" src="../SpecialRenderingSources/PBRMetallicRoughness.jpg" /></p>
 <h1 id="ibl">IBL</h1>
-<p>基于图像的光照（<strong>Image based lighting</strong>）是一类光照技术的集合。其不是可分解的直接光源，而是将周围环境整体视为一个大光源。<strong>IBL</strong> 通常使用（取自现实世界或从 <strong>3D</strong> 场景生成的）环境立方体贴图，我们可以将立方体贴图的每个像素视为光源，在渲染方程中直接使用它。这种方式可以有效地捕捉环境的全局光照和氛围，使物体更好地融入其环境。</p>
-<p>由于基于图像的光照算法会捕捉部分甚至全部的环境光照，通常认为它是一种更精确的环境光照输入格式，甚至也可以说是一种全局光照的粗略近似。基于此特性，<strong>IBL</strong> 对 <strong>PBR</strong> 很有意义，因为当我们将环境光纳入计算之后，物体在物理方面看起来会更加准确。</p>
-<p>要开始将 <strong>IBL</strong> 引入我们的 <strong>PBR</strong> 系统，让我们再次快速看一下反射方程：</p>
-<p>$$L_{o}(x,w_{o})=\int_{H^{2}}^{}(k_{d}\frac{c}{\pi}+k_{s}\frac{DFG}{4(w_{o}\cdot n)(w_{i}\cdot n)})L_{i}(x,w_{i})n\cdot w_{i}dw_{i}$$</p>
-<p>其中，$n$ 为法向量。</p>
+<p>基于图像的光照（<strong>Image based lighting</strong>）是将周围环境（立方体贴图）整体视为一个大光源。</p>
+<p><img alt="立方体贴图" src="../SpecialRenderingSources/CubeMap.png" /></p>
+<!-- 要开始将 **IBL** 引入我们的 **PBR** 系统，让我们再次快速看一下反射方程：
+
+$$L_{o}(x,w_{o})=\int_{H^{2}}^{}(k_{d}\frac{c}{\pi}+k_{s}\frac{DFG}{4(w_{o}\cdot n)(w_{i}\cdot n)})L_{i}(x,w_{i})n\cdot w_{i}dw_{i}$$
+
+其中，$n$ 为法向量。 -->
+
 <p>同样是计算外界辐射量（漫反射），可以将立方体贴图的每个纹素视为一个光源。使用一个方向向量 $w_{i}$ 对此立方体贴图进行采样，我们就可以获取该方向上的场景辐照度。如此，给定方向向量 $w_{i}$ ，获取此方向上场景辐射度的方法就简化为：</p>
 <pre><code>vec3 radiance =  texture(_cubemapEnvironment, w_i).rgb;
 </code></pre>
-<p>仔细研究反射方程，我们发现 <strong>BRDF</strong> 的漫反射 $k_{d}$ 和镜面 $k_{s}$ 项是相互独立的，我们可以将积分分成两部分：</p>
+<p>仔细研究反射方程，可以发现 <strong>BRDF</strong> 的漫反射 $k_{d}$ 和镜面 $k_{s}$ 项是相互独立的，因此可以将积分分成两部分：</p>
 <p>$$L_{o}(x,w_{o})=\int\limits_{H^{2}}^{}k_{d}\frac{c}{\pi}L_{i}(x,w_{i})n\cdot w_{i}dw_{i}+\int\limits_{H^{2}}^{}k_{s}\frac{DFG}{4(w_{o}\cdot n)(w_{i}\cdot n)}L_{i}(x,w_{i})n\cdot w_{i}dw_{i}$$</p>
-<p>仔细观察漫反射积分，我们发现漫反射兰伯特项是一个常数项（颜色 $c$、折射率 $k_{d}$ 和 $π$ 在整个积分是常数），不依赖于任何积分变量。基于此，我们可以将常数项移出漫反射积分：</p>
+<p>同时可以将兰伯特项这个常数项移出漫反射积分：</p>
 <p>$$L_{o}(x,w_{o})=k_{d}\frac{c}{\pi}\int\limits_{H^{2}}^{}L_{i}(x,w_{i})n\cdot w_{i}dw_{i}$$</p>
-<p>这给了我们一个只依赖于 $w_{i}$ 的积分（假设 $x$ 位于环境贴图的中心）。于是便可以计算或预计算一个新的立方体贴图，它在每个采样方向（纹素）中存储漫反射积分的结果，这些结果是通过卷积计算出来的。</p>
-<p>为了对环境贴图进行卷积，我们通过对半球 $H^{2}$ 上的大量方向进行离散采样并对其辐射度取平均值，来计算每个输出采样方向 $w_{o}$ 的积分。用来采样方向 $w_{i}$ 的半球，要面向卷积的输出采样方向 $w_{o}$。</p>
-<p><img alt="IBL Hemisphere Sample" src="../SpecialRenderingSources/IBLHemisphereSample.png" /></p>
-<p>这个预计算的立方体贴图，在每个采样方向 $w_{o}$ 上存储其积分结果，可以理解为场景中所有能够击中面向 $w_{o}$ 的表面的间接漫反射光的预计算总和。这样的立方体贴图被称为辐照度图，因为经过卷积计算的立方体贴图能让我们从任何方向有效地直接采样场景（预计算好的）辐照度。</p>
-<p>下面是一个环境立方体贴图及其生成的辐照度图的示例，每个方向 $w_{o}$ 的场景辐射度取平均值。</p>
+<p>于是得到了一个只依赖于 $w_{i}$ 的积分（假设 $x$ 位于环境贴图的中心），从而可以计算一个新的立方体贴图，它在每个采样方向（纹素）中存储漫反射积分的结果。</p>
 <p><img alt="IBL Irradiance" src="../SpecialRenderingSources/IBLIrradiance.png" /></p>
-<p>由于立方体贴图每个纹素中存储了（ $w_{o}$ 方向的）卷积结果，辐照度图看起来有点像环境的平均颜色或光照图。使用任何一个向量对立方体贴图进行采样，就可以获取该方向上的场景辐照度。</p>
-<h1 id="_11">经典阴影方法</h1>
+<p>这个计算出的立方体贴图被称为辐照度图，它在每个采样方向 $w_{o}$ 上存储其积分结果，因此使用时可以从任何方向直接采样场景的辐照度。</p>
+<p>总的来说，可以将其理解为场景中所有能够击中面向 $w_{o}$ 的表面的间接漫反射光的预计算总和，因此其看起来会有点像环境的平均颜色或光照图。</p>
+<h1 id="_13">经典阴影方法</h1>
 <h2 id="cascade-shadow">Cascade Shadow</h2>
 <p>现在的世界做的越来越开阔，但是光采样过来的精度往往是不够的，这样就有一种分层的想法。在近处做高精度 <strong>shadow map</strong>，当距离越来越远，<strong>shadow map</strong> 的精度越来越低。</p>
 <p><img alt="Cascade Shadow" src="../SpecialRenderingSources/CascadeShadow.png" /></p>
 <p>它要注意的问题就是在不同层级之间要做插值，不然会导致随着摄像机推进会出现阴影破损的效果。还有一个问题就是，在绘制远处的 <strong>shadow map</strong> 的时候需要将整个空间都绘制一遍，这个过程明显是很耗时的。</p>
-<h2 id="_12">软阴影</h2>
+<h2 id="_14">软阴影</h2>
 <h3 id="pcf-and-pcss">PCF and PCSS</h3>
 <p>PCF（<strong>Percentage Closer Filtering</strong>）现在通常运用于产生软阴影，它的基本思想是采样 <strong>shadow map</strong> 中当前像素周围的点，之后进行比较，将这些值取平均作为结果，就会得到一个从暗到亮的平滑变换过程。</p>
 <p>由 <strong>PCF</strong> 可知，当 <strong>filter size</strong> 越大影子越软，同时这个值与投影的深度有关。</p>
@@ -464,7 +456,7 @@ float kD = 1.0 - ks;                        // 折射/漫反射 部分
 <p>对于实时渲染的阴影，这里需要提到一个基于切比雪夫不等式的 <strong>VSM</strong>（<strong>Variance Shadow Mapping</strong>）。在 <strong>PCSS</strong> 中我们要对软阴影范围内的像素多次计算 <strong>PCF</strong>，而每次计算都需要对周围进行多次采样，这样十分繁琐，实际上我们只需要知道深度大于当前着色点深度的范围占整个区域的比例即可。</p>
 <p>我们通过采样可以得到一个 <strong>filter</strong> 中所有采样点的均值和方差，通过这个可以直接获得当前像素深度值的占比。</p>
 <p><img alt="VSMM" src="../SpecialRenderingSources/VSMM.png" /></p>
-<h1 id="_13">资料来源</h1>
+<h1 id="_15">资料来源</h1>
 <ol>
 <li><a href="https://blog.csdn.net/qq_40944811/article/details/127078450">许多图片</a></li>
 </ol>
